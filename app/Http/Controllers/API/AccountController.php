@@ -10,7 +10,6 @@ class AccountController extends Controller
 {
     public function login ( Request $request )
     {
-        
         if ( isset($_POST["account"]) && isset($_POST['password']) )
         {
             if ( $token = Account::login($_POST["account"], $_POST["password"]) )
@@ -30,5 +29,11 @@ class AccountController extends Controller
         }
     }
     
-    
+    public function logout ( Request $request )
+    {
+        Account::logout( $request->session()->get("token") );
+        $request->session()->pull("token");
+        
+        return redirect()->route('home');
+    }
 }

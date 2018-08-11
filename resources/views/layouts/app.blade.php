@@ -34,7 +34,13 @@
     <body>
 
         @component('components.header')
+            
+            @slot('home_link')
+                @yield('home_link')
+            @endslot
+            
             @yield('custom_nav_right')
+            
         @endcomponent
 
         <main role="main" class="container">

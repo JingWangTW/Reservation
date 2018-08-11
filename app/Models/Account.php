@@ -48,6 +48,11 @@ class Account extends Model
         return false;
     }
     
+    public static function logout ( $token )
+    {
+        User::where('token', $token)->first()->delete();
+    }
+    
     public static function addStudents ( $studentList )
     {
         foreach( $studentList as $student )

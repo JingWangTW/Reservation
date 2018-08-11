@@ -53,6 +53,8 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->post('login', 'API\AccountController@login');
     
+    $router->get ('logout', 'API\AccountController@logout');
+    
     
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 

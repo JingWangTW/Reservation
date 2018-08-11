@@ -1,10 +1,6 @@
-@extends('layouts.app')
+@extends('layouts.teacher')
 
 @section('title', 'Create Class')
-
-@section('custom_nav_right')
-    @include ('components.teacher_dropdown')
-@endsection
 
 @section('content')
     <div class="row justify-content-center">

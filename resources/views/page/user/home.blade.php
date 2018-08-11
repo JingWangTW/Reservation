@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 
 @section('title', 'Home Page')
 
@@ -8,10 +8,6 @@
         padding: 3rem 1.5rem;
         text-align: center;
     }
-@endsection
-
-@section('custom_nav_right')
-    @include ('components.login_form')
 @endsection
 
 @section('content')
