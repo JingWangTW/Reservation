@@ -120,7 +120,7 @@
 
 @section('content')
     <div class="row justify-content-center">
-        <form class="col-md-10 col-sm-12 col-12" action="/api/add_students" method="POST">
+        <form class="col-md-10 col-sm-12 col-12" action="/api/add_students" method="POST" enctype="multipart/form-data">
         
             <fieldset class="mb-3">
                 <legend class="px-2"> Class </legend>

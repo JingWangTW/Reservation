@@ -32,16 +32,36 @@ class TeacherController extends Controller
     {
         if ( isset($_POST["className"]) )
         {
-            $checkSuccess = false;
-            
-            // check if exist upload file
-            if ( isset($_POST["studentFile"]) && $_POST["studentFile"])
+            $studentList = [];
+                        
+            if ( isset($_FILES["studentFile"]) && $_FILES["studentFile"]["size"])
             {
-                return "789";
+                $file = fopen($_FILES["studentFile"]["tmp_name"], "r");
+                
+                $index = 0;
+                
+                while (($data = fgetcsv($file)) !== FALSE)
+                {
+                    if ($index++ == 0)
+                    {
+                        if ($data[0] != "StudentName" || $data[1] != "StudentID")
+                        {
+                            $studentList = null;
+                            break;
+                        }
+                        else
+                            continue;
+                    }
+                    
+                    array_push($studentList, [
+                        "studentName" => $data[0],
+                        "studentID" => $data[1],
+                    ]);
+                }
             }
             // otherwise add by table
             else if ( isset ($_POST["studentName"]) )
-            {
+            { 
                 $studentList = [];
                 
                 for ($index = 0; $index < count($_POST["studentName"]) ; $index++) 
@@ -51,14 +71,17 @@ class TeacherController extends Controller
                         "studentID" => $_POST["studentID"][$index]
                     ]);
                 }
-                
-                $checkSuccess =  Account::addStudents($studentList);
-                
-                if ($checkSuccess )
-                    return "1";
-                else
-                    return "2";
             }
+            
+            if ($studentList != null) 
+            {
+                return Account::addStudents($studentList) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            }
+            else
+            {
+                return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            }
+            
         }
         else
         {
