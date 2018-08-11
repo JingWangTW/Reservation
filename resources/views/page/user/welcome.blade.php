@@ -2,6 +2,14 @@
 
 @section('title', 'Warn Page')
 
+@section('custom_css')
+    .warn-div
+    {
+        padding: 3rem 1.5rem;
+        text-align: center;
+    }
+@endsection
+
 @section('content')
     <div class="warn-div">
         <h1> Here Will Get Some Warning</h1>

@@ -2,6 +2,14 @@
 
 @section('title', 'Home Page')
 
+@section('custom_css')
+    .warn-div
+    {
+        padding: 3rem 1.5rem;
+        text-align: center;
+    }
+@endsection
+
 @section('custom_nav_right')
     @include ('components.login_form')
 @endsection

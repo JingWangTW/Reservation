@@ -19,14 +19,15 @@
                 padding-top: 5rem;
                 font-family: 'Noto Sans TC';
             }
-            .warn-div {
-                padding: 3rem 1.5rem;
-                text-align: center;
-            }
+            
             
             @yield('custom_css')
             
         </style>
+        
+        <script>
+            @yield('custom_js')
+        </script>
         
     </head>
     

@@ -48,6 +48,30 @@ class Account extends Model
         return false;
     }
     
+    public static function addStudents ( $studentList )
+    {
+        foreach( $studentList as $student )
+        {
+            $findAccount = DB::table("account")
+                        ->where("account", "=", $student["studentID"])
+                        ->where("authority", "=", 1)
+                        ->first();
+                        
+            if ( !$findAccount )
+            {
+                return DB::table("account")
+                    ->insert([
+                        "account" => $student["studentID"],
+                        "password" => password_hash($student["studentID"], PASSWORD_BCRYPT),
+                        "name" => $student["studentName"],
+                        "authority" => 1,
+                        "email" => $student['studentID']."@mail.ntou.edu.tw" 
+                    ]);
+            }
+        }
+    }
+    
+    
     private static function generateToken () {
         $pieces = [];
         $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

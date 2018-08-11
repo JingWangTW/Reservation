@@ -11,6 +11,7 @@
 |
 */
 
+// all users page part
 $router->group(['middleware' => 'warn'], function () use ($router) {
     
     $router->get ('/', [
@@ -24,6 +25,8 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
     );
 });
 
+
+// all teacher pages parts
 $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 
     $router->get ('/teacher', [
@@ -41,9 +44,9 @@ $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) 
         'as' => 'add_students', 
         'uses' => 'Page\TeacherPageController@addStudents'] 
     );
-    
 });
 
+// all api parts
 $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->post('agree', 'API\UserController@signAgreeWarn');
@@ -54,8 +57,16 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 
         $router->post('create_class', 'API\TeacherController@createClass');
+        $router->post('add_students', 'API\TeacherController@addStudents');
     
     });
+});
+
+// all files part
+$router->group(['prefix' => 'file'], function () use ($router) {
+    
+    $router->get('system/{fileName}', 'FileManager\SystemFile@service');
+    
 });
 
 

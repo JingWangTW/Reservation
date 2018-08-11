@@ -2,10 +2,8 @@
 
 @section('content')
     <div class="warn-div">
-        <div class="alert-danger">
-            <?php
-                echo $message;
-            ?>
+        <div class="alert-danger">        
+            {{ $message }}
         </div>
     </div>
 @endsection
