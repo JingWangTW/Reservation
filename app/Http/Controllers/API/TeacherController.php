@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller as Controller;
 use App\Models\ClassManager as ClassManager;
 use App\Models\Account as Account;
+use App\Models\Reservation as Reservation;
 
 use Illuminate\Http\Request;
 
@@ -94,6 +95,22 @@ class TeacherController extends Controller
         if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) )
         {
             return Account::addAssistant($_POST['name'], $_POST['email']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+        }
+        
+        return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+    }
+    
+    public function addReservation ( Request $request )
+    {
+        if ( isset( $_POST['className'] ) && 
+             isset( $_POST['classRoom'] ) && 
+             isset( $_POST['date'] )  && 
+             isset( $_POST['time'] )  && 
+             isset( $_POST['assistant'] ))
+        {
+            $index = "A".time().mt_rand();
+            
+            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $_POST['date'].' '.$_POST['time'], $_POST['assistant'], $index) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
         }
         
         return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);

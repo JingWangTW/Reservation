@@ -30,7 +30,9 @@
             <div class="form-group">
                 <label for="assistant">Assign Assistant</label>
                 <select class="form-control" id="assistant" name="assistant" required>
-                    
+                    @foreach ($assistantList as $assistant)
+                        <option value="{{ $assistant['account'] }}"> {{ $assistant['name'] }} </option>
+                    @endforeach
                 </select>
             </div>
             

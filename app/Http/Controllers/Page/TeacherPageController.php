@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Page;
 
 use App\Models\ClassManager as ClassManager;
+use App\Models\Account as Account;
 
 use App\Http\Controllers\Controller as Controller;
 use Illuminate\Http\Request;
@@ -26,14 +27,16 @@ class TeacherPageController extends Controller
         return view('page.teacher.add_students', ['classList' => $classList]);
     }
     
-    public function addReservation ( Request $request)
-    {
-        return view('page.teacher.add_reservation');
-    }
-    
     public function addAssistant ( Request $request)
     {
         return view('page.teacher.add_assistant');
+    }
+    
+    public function addReservation ( Request $request)
+    {
+        $assistantList = Account::getAssistantList();
+        
+        return view('page.teacher.add_reservation', ['assistantList' => $assistantList]);
     }
     
 }

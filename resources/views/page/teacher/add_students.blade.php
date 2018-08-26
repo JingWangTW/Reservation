@@ -130,7 +130,7 @@
                     <label for="className">Class Name</label>
                     <select class="form-control" id="className" placeholder="Class Name" name="className" required>
                         @foreach ($classList as $class)
-                            <option vlaue="{{ $class['classIndex'] }}"> {{ $class['className'] }} </option>
+                            <option value="{{ $class['classIndex'] }}"> {{ $class['className'] }} </option>
                         @endforeach
                     </select>
                     <small class="form-text text-danger">Please create class first, if necessary.</small>

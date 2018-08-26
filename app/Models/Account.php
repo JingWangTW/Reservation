@@ -76,29 +76,23 @@ class Account extends Model
         }
     }
     
-    public static function addAssistant( $name, $email )
+    public static function getAssistantList ()
     {
-        $findAccount = DB::table("account")
-                    ->where("account", "=", $email)
+        $findAssistant = DB::table("account")
                     ->where("authority", "=", 2)
-                    ->first();
-                    
-        if ( !$findAccount )
-        {
-            return DB::table("account")
-                ->insert([
-                    "account" => $email,
-                    "password" => password_hash($email, PASSWORD_BCRYPT),
-                    "name" => $name,
-                    "authority" => 2,
-                    "email" => $email 
-                ]);
+                    ->get();
         
-        } else {
-            
-            return false;
-            
-        }        
+        $assistantList = [];
+        
+        foreach( $findAssistant as  $assistant )
+        {
+            array_push ( $assistantList, [
+                "name" => "{$assistant -> name}",
+                "account" => $assistant -> account,
+            ]);
+        }
+        
+        return $assistantList;
     }
     
     

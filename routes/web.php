@@ -71,6 +71,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('create_class', 'API\TeacherController@createClass');
         $router->post('add_students', 'API\TeacherController@addStudents');
         $router->post('add_assistant', 'API\TeacherController@addAssistant');
+        $router->post('add_reservation', 'API\TeacherController@addReservation');
     
     });
 });
