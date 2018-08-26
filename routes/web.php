@@ -44,6 +44,16 @@ $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) 
         'as' => 'add_students', 
         'uses' => 'Page\TeacherPageController@addStudents'] 
     );
+    
+    $router->get ('/teacher/add_reservation', [
+        'as' => 'add_reservation', 
+        'uses' => 'Page\TeacherPageController@addReservation'] 
+    );
+    
+    $router->get ('/teacher/add_assistant', [
+        'as' => 'add_assistant', 
+        'uses' => 'Page\TeacherPageController@addAssistant'] 
+    );
 });
 
 // all api parts
@@ -60,6 +70,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         $router->post('create_class', 'API\TeacherController@createClass');
         $router->post('add_students', 'API\TeacherController@addStudents');
+        $router->post('add_assistant', 'API\TeacherController@addAssistant');
     
     });
 });

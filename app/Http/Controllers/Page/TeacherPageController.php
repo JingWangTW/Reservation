@@ -26,4 +26,14 @@ class TeacherPageController extends Controller
         return view('page.teacher.add_students', ['classList' => $classList]);
     }
     
+    public function addReservation ( Request $request)
+    {
+        return view('page.teacher.add_reservation');
+    }
+    
+    public function addAssistant ( Request $request)
+    {
+        return view('page.teacher.add_assistant');
+    }
+    
 }

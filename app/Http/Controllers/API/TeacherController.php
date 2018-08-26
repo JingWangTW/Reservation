@@ -89,5 +89,15 @@ class TeacherController extends Controller
         }
     }
     
+    public function addAssistant ( Request $request )
+    {
+        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) )
+        {
+            return Account::addAssistant($_POST['name'], $_POST['email']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+        }
+        
+        return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+    }
+    
     
 }

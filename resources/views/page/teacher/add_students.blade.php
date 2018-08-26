@@ -27,6 +27,7 @@
         border-image: initial;
         width: inherit;
     }
+    
     #inputGroupFile
     {
         z-index: 10;
@@ -132,6 +133,7 @@
                             <option vlaue="{{ $class['classIndex'] }}"> {{ $class['className'] }} </option>
                         @endforeach
                     </select>
+                    <small class="form-text text-danger">Please create class first, if necessary.</small>
                 </div>
             </fieldset>
             <fieldset class="mb-3">
@@ -149,6 +151,8 @@
                 <div class="tab-content px-1 py-2" id="myTabContent">
                     
                     <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="home-tab">
+                        <small class="form-text text-danger">Students must login by their student ID, please key in correctly.</small>
+                        <small class="form-text text-danger">Default password would be the same as student ID.</small>
                         <div class="input-group my-3">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="inputGroupFileAddon">Upload</span>
@@ -158,10 +162,13 @@
                                 <label class="custom-file-label" for="inputGroupFile" id="file_name_label">Choose file</label>
                             </div>
                         </div>
+                        <small class="form-text text-danger">Please fill in the table prepare in the sample file.</small>
                         <a class="btn btn-success" href="/file/system/add_student_example.csv"> Download Sample File</a>
                     </div>
                     
                     <div class="tab-pane fade" id="key" role="key" aria-labelledby="profile-tab">
+                        <small class="form-text text-danger">Students must login by their student ID, please key in correctly.</small>
+                        <small class="form-text text-danger">Default password would be the same as student ID.</small>
                         <div>
                             <div id="key_in_student">
                                 <label for="student_total">How many students to add to this class? </label>

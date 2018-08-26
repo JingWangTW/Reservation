@@ -76,6 +76,31 @@ class Account extends Model
         }
     }
     
+    public static function addAssistant( $name, $email )
+    {
+        $findAccount = DB::table("account")
+                    ->where("account", "=", $email)
+                    ->where("authority", "=", 2)
+                    ->first();
+                    
+        if ( !$findAccount )
+        {
+            return DB::table("account")
+                ->insert([
+                    "account" => $email,
+                    "password" => password_hash($email, PASSWORD_BCRYPT),
+                    "name" => $name,
+                    "authority" => 2,
+                    "email" => $email 
+                ]);
+        
+        } else {
+            
+            return false;
+            
+        }        
+    }
+    
     
     private static function generateToken () {
         $pieces = [];
