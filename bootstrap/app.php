@@ -75,6 +75,7 @@ $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'warn' => App\Http\Middleware\Page\Warn::class,
     'teacher' => App\Http\Middleware\Page\Teacher::class,
+    'assistant' => App\Http\Middleware\Page\Assistant::class,
 ]);
 
 $app->middleware([

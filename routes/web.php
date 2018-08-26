@@ -25,6 +25,16 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
     );
 });
 
+// all teacher pages parts
+$router->group(['middleware' => ['auth', 'assistant']], function () use ($router) {
+
+    $router->get ('/assistant', [
+        'as' => 'assistant_home', 
+        'uses' => 'Page\AssistantPageController@home'] 
+    );
+    
+});
+
 
 // all teacher pages parts
 $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {

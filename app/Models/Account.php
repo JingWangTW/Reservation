@@ -37,7 +37,7 @@ class Account extends Model
                     ]);
                 }
                                     
-                return $token;
+                return ['token' => $token, 'authority' => $findAccount -> authority];//$token;
             }
             else
             {

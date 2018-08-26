@@ -12,11 +12,18 @@ class AccountController extends Controller
     {
         if ( isset($_POST["account"]) && isset($_POST['password']) )
         {
-            if ( $token = Account::login($_POST["account"], $_POST["password"]) )
+            if ( $info = Account::login($_POST["account"], $_POST["password"]) )
             {
-                $request->session()->put("token", $token);
+                $request->session()->put("token", $info['token']);
                 
-                return redirect()->route('teacher_home');
+                if ( $info['authority'] == 3)
+                    return redirect()->route('teacher_home');
+                else if ( $info['authority'] == 2)
+                    return redirect()->route('assistant_home');
+                else if ( $info['authority'] == 1)
+                    return redirect()->route('student_home');
+                else
+                    return redirect()->route('home');
             }
             else
             {
