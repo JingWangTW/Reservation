@@ -27,16 +27,16 @@ class TeacherPageController extends Controller
         return view('page.teacher.add_students', ['classList' => $classList]);
     }
     
-    public function addAssistant ( Request $request)
+    public function newAssistant ( Request $request)
     {
-        return view('page.teacher.add_assistant');
+        return view('page.teacher.new_assistant');
     }
     
-    public function addReservation ( Request $request)
+    public function newReservation ( Request $request)
     {
         $assistantList = Account::getAssistantList();
         
-        return view('page.teacher.add_reservation', ['assistantList' => $assistantList]);
+        return view('page.teacher.new_reservation', ['assistantList' => $assistantList]);
     }
     
 }

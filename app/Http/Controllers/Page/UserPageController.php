@@ -7,12 +7,6 @@ use Illuminate\Http\Request;
 
 class UserPageController extends Controller
 {
-    /**
-     * 保存一个新用户
-     *
-     * @param  Request  $request
-     * @return Response
-     */
     public function index ( Request $request )
     {
         return view('page.user.welcome');

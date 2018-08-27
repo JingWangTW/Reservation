@@ -21,6 +21,25 @@ class ClassManager extends Model
         }
     }
     
+    public static function addStudent ( $classIndex, $studentList )
+    {
+        try 
+        {
+            foreach ( $studentList as $student )
+            {
+                DB::table('class_own_student') -> insert([
+                    'class_index' => $classIndex,
+                    'account' => $student["studentID"]
+                ]);
+            }
+            
+            return true;
+            
+        } catch ( Exception $exception ) {
+            return false;
+        }
+    }
+    
     public static function getClassList (  )
     {
         $class = DB::table('class')->get();

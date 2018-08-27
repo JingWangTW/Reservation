@@ -35,6 +35,7 @@ class TeacherController extends Controller
         {
             $studentList = [];
                         
+            // if input by file
             if ( isset($_FILES["studentFile"]) && $_FILES["studentFile"]["size"])
             {
                 $file = fopen($_FILES["studentFile"]["tmp_name"], "r");
@@ -43,6 +44,7 @@ class TeacherController extends Controller
                 
                 while (($data = fgetcsv($file)) !== FALSE)
                 {
+                    // the first row should be title
                     if ($index++ == 0)
                     {
                         if ($data[0] != "StudentName" || $data[1] != "StudentID")
@@ -54,10 +56,13 @@ class TeacherController extends Controller
                             continue;
                     }
                     
-                    array_push($studentList, [
-                        "studentName" => $data[0],
-                        "studentID" => $data[1],
-                    ]);
+                    // check if the blank is not empty
+                    if ( !empty($data[0]) && !empty($data[1]) ) {
+                        array_push($studentList, [
+                            "studentName" => $data[0],
+                            "studentID" => $data[1],
+                        ]);
+                    }                    
                 }
             }
             // otherwise add by table
@@ -76,7 +81,17 @@ class TeacherController extends Controller
             
             if ($studentList != null) 
             {
-                return Account::addStudents($studentList) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+                $addStudentStatus = Account::addStudents($studentList);
+                
+                if ( !$addStudentStatus )
+                    view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            
+                $addToClass = ClassManager::addStudent($_POST['className'], $studentList);
+                
+                if ( !$addToClass )
+                    return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+                else
+                    return redirect()->route('teacher_home');
             }
             else
             {
@@ -94,26 +109,43 @@ class TeacherController extends Controller
     {
         if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) )
         {
-            return Account::addAssistant($_POST['name'], $_POST['email']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            $status = Account::addAssistant($_POST['name'], $_POST['email']);
+            
+            if ( is_array($status)  && $status['error'] ) {
+                
+                return view('page.utility.wrong_message', ['message' => $status['error']]);
+                
+            } else if ( $status ) {
+                
+                return redirect()->route('teacher_home');
+                
+            } else {
+                
+                return view('page.utility.wrong_message', ['message' => 'Wrong Input!']);
+                
+            }
         }
         
-        return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+        return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
     }
     
     public function addReservation ( Request $request )
     {
         if ( isset( $_POST['className'] ) && 
              isset( $_POST['classRoom'] ) && 
-             isset( $_POST['date'] )  && 
-             isset( $_POST['time'] )  && 
+             isset( $_POST['startTime'] ) && 
+             isset( $_POST['endTime'] ) && 
              isset( $_POST['assistant'] ))
         {
             $index = "A".time().mt_rand();
             
-            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $_POST['date'].' '.$_POST['time'], $_POST['assistant'], $index) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            $startTime = $_POST['startTime'][0].' '.$_POST['startTime'][1];
+            $endTime = $_POST['endTime'][0].' '.$_POST['endTime'][1];
+            
+            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant'], $index) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
         }
         
-        return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+        return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
     }
     
     

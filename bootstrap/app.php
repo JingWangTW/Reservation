@@ -76,6 +76,7 @@ $app->routeMiddleware([
     'warn' => App\Http\Middleware\Page\Warn::class,
     'teacher' => App\Http\Middleware\Page\Teacher::class,
     'assistant' => App\Http\Middleware\Page\Assistant::class,
+    'student' => App\Http\Middleware\Page\Student::class,
 ]);
 
 $app->middleware([

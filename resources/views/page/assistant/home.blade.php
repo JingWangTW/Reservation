@@ -1,4 +1,4 @@
-@extends('layouts.teacher')
+@extends('layouts.assistant')
 
 @section('title', 'Home Page')
 
