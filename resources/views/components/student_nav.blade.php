@@ -1,6 +1,6 @@
 
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href={{ $home_link }}> Reservation System </a>
+    <a class="navbar-brand" href="/assistant"> Reservation System </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,7 +22,13 @@
             </li>
         </ul>
         
-        {{ $slot }}
+       <div class='navbar-nav form-inline nav-item dropdown mr-5'>
+           <a class='nav-link dropdown-toggle' href='/' id='dropdown01' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> {{ $NAME }}</a>
+           <div class='dropdown-menu' aria-labelledby='dropdown01'>
+
+              <a class='dropdown-item' href='/api/logout'>Logout</a>
+           </div>
+        </div>
         
     </div>
 </nav>

@@ -84,6 +84,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->get ('logout', 'API\AccountController@logout');
     
+    $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
+
+        $router->post('reserve_reservation', 'API\StudentController@reserveReservation');
+    
+    });
+    
     
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 

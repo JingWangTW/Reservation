@@ -11,12 +11,14 @@
         
         <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/earlyaccess/notosanstc.css">
         
+        @yield('custom_head_file')
+        
         <title> @yield('title') - Reservation System </title>
         
         <style>
             
             body {
-                padding-top: 5rem;
+                padding-top: 3rem;
                 font-family: 'Noto Sans TC';
             }
             
@@ -32,18 +34,10 @@
     </head>
     
     <body>
+        
+        @yield ('custom_nav')
 
-        @component('components.header')
-            
-            @slot('home_link')
-                @yield('home_link')
-            @endslot
-            
-            @yield('custom_nav_right')
-            
-        @endcomponent
-
-        <main role="main" class="container">
+        <main role="main">
             @yield('content')
         </main>
     

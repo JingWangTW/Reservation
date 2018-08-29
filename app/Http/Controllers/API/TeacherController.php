@@ -14,18 +14,18 @@ class TeacherController extends Controller
     {
         if ( isset($_POST["className"]) && isset($_POST['academicYear']) && isset($_POST['semester']) )
         {
-            if ( ClassManager::createClass($_POST["className"], $_POST["academicYear"], $_POST["semester"], "C".time().mt_rand() ) )
+            if ( ClassManager::createClass($_POST["className"], $_POST["academicYear"], $_POST["semester"] ) )
             {
                 return redirect()->route('teacher_home');
             }
             else
             {
-               return view('page.utility.wrong_message', ['message' => '新增課程失敗']);
+               return view('page.utility.wrong_message', ['message' => 'Fail to New Class']);
             }
         }
         else
         {
-            return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
         }
     }
     
@@ -137,12 +137,10 @@ class TeacherController extends Controller
              isset( $_POST['endTime'] ) && 
              isset( $_POST['assistant'] ))
         {
-            $index = "A".time().mt_rand();
-            
             $startTime = $_POST['startTime'][0].' '.$_POST['startTime'][1];
             $endTime = $_POST['endTime'][0].' '.$_POST['endTime'][1];
             
-            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant'], $index) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);

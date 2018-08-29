@@ -32,7 +32,7 @@ class AuthServiceProvider extends ServiceProvider
 
         $this->app['auth']->viaRequest('api', function ($request)
         {
-            $user = User::where('token',$request->session()->get('token', 'token')) -> first();;
+            $user = User::where('token', $request->session()->get('token', 'token')) -> first();;
             
             if ( !$user )
             {

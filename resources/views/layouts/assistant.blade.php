@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('home_link')
-"/assistant"
+@section('custom_nav')   
+    @include ('components.assistant_nav')
 @endsection
 
-@section('custom_nav_right')
-    @include ('components.assistant_dropdown')
-@endsection
+
+
+
 

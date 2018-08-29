@@ -6,15 +6,16 @@ use Illuminate\Support\Facades\DB;
 
 class ClassManager extends Model
 {
-    public static function createClass ( $className, $academicYear, $semester, $classIndex )
+    public static function createClass ( $className, $academicYear, $semester )
     {
+        $index = "C".time().mt_rand()
         try
         {
             return DB::table('class')->insert([
                 'class_name' => $className,
                 'academic_year' => $academicYear,
                 'semester' => $semester,
-                'class_index' => $classIndex
+                'class_index' => $index
             ]);
         } catch ( Exception $exception ) {
             return false;

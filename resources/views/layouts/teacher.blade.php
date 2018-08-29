@@ -1,10 +1,5 @@
 @extends('layouts.app')
 
-@section('home_link')
-"/teacher"
+@section('custom_nav')   
+    @include ('components.teacher_nav')
 @endsection
-
-@section('custom_nav_right')
-    @include ('components.teacher_dropdown')
-@endsection
-
