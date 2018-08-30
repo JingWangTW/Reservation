@@ -146,7 +146,7 @@ $router->group(['prefix' => 'file'], function () use ($router) {
 
 
 $router->get('hash_password', function(){
-    return password_hash("admin", PASSWORD_BCRYPT);
+    return password_hash("test", PASSWORD_BCRYPT);
 });
 
 

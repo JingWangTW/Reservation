@@ -8,23 +8,50 @@ use \DateInterval;
 
 class Reservation extends Model
 {
-    public static function createReservation ( $className, $classRoom, $startTime, $endTime, $assistant )
+    public static function createReservation ( $className, $classRoom, $startTime, $endTime, $assistant, $repeatDay, $repeatTime )
     {
-        try
+        // totle times to repeat
+        $repeatTime = $repeatTime + 1;
+        
+        // if repeat every 0 day, jsut add it once
+        if ($repeatDay == 0)
+            $repeatTime = 1;
+        
+        for ( $counter = 0; $counter < $repeatTime; $counter++ )
         {
-            $index = "A".time().mt_rand();
+            $index = "A".Utility::generateRandomString(10);
             
-            return DB::table('reservation_class')->insert([
-                'class_name' => $className,
-                'class_room' => $classRoom,
-                'start_time' => $startTime,
-                'end_time' => $endTime,
-                'assistant' => $assistant,
-                'class_index' => $index,
-            ]);
-        } catch ( Exception $exception ) {
-            return false;
+            $newStartTime = $startTime;
+            $newEndTime = $endTime;
+            
+            // if the counter larger than 0, change start time and end time
+            if ($counter > 0)
+            {
+                $newStartTime = new DateTime($startTime);
+                $newStartTime = $newStartTime -> add(new DateInterval('P'.$repeatDay*$counter.'D'));
+                
+                $newEndTime = new DateTime($endTime);
+                $newEndTime = $newEndTime -> add(new DateInterval('P'.$repeatDay*$counter.'D'));
+            }
+            
+            try
+            {
+                DB::table('reservation_class')->insert([
+                    'class_name' => $className,
+                    'class_room' => $classRoom,
+                    'start_time' => $newStartTime,
+                    'end_time' => $newEndTime,
+                    'assistant' => $assistant,
+                    'class_index' => $index
+                ]);                     
+            } 
+            catch( Exception $exception )
+            {
+                return false;
+            }
         }
+        
+        return true;
     }
     
     public static function get2WeeksReservationClass () 
@@ -93,7 +120,7 @@ class Reservation extends Model
         return $classList;
     }
     
-    // get the whole info of class, include student name, student email, questions. 
+    // get the whole info of class, include student name, student email, questions, etc. 
     public static function getClass ( $classIndex )
     {
         // get the class info
@@ -106,7 +133,7 @@ class Reservation extends Model
                 {
                     // condition to join table
                     $join->on('reservation_record.student_account', '=', 'account.account')
-                        -> where ( 'reservation_record.class_index', ">=", $classIndex );
+                        -> where ( 'reservation_record.class_index', "=", $classIndex );
                 })
             // only selest the column that need
             -> select ( 'reservation_record.question', 

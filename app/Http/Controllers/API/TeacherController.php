@@ -57,10 +57,12 @@ class TeacherController extends Controller
                     }
                     
                     // check if the blank is not empty
-                    if ( !empty($data[0]) && !empty($data[1]) ) {
+                    if ( !empty($data[0]) && !empty($data[1]) && !empty($data[2]) && !empty($data[3]) ) {
                         array_push($studentList, [
                             "studentName" => $data[0],
                             "studentID" => $data[1],
+                            "department" => $data[2],
+                            "grade" => $data[3],
                         ]);
                     }                    
                 }
@@ -74,7 +76,9 @@ class TeacherController extends Controller
                 {
                     array_push($studentList, [
                         "studentName" => $_POST["studentName"][$index],
-                        "studentID" => $_POST["studentID"][$index]
+                        "studentID" => $_POST["studentID"][$index],
+                        "department" => $_POST["department"][$index],
+                        "grade" => $_POST["grade"][$index]
                     ]);
                 }
             }
@@ -95,13 +99,13 @@ class TeacherController extends Controller
             }
             else
             {
-                return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+                return view('page.utility.wrong_message', ['message' => 'Wrong Input!']);
             }
             
         }
         else
         {
-            return view('page.utility.wrong_message', ['message' => '欄位填寫錯誤']);
+            return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
         }
     }
     
@@ -135,12 +139,14 @@ class TeacherController extends Controller
              isset( $_POST['classRoom'] ) && 
              isset( $_POST['startTime'] ) && 
              isset( $_POST['endTime'] ) && 
+             isset( $_POST['repeatDay'] ) && 
+             isset( $_POST['repeatTime'] ) && 
              isset( $_POST['assistant'] ))
         {
             $startTime = $_POST['startTime'][0].' '.$_POST['startTime'][1];
             $endTime = $_POST['endTime'][0].' '.$_POST['endTime'][1];
             
-            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant'], $_POST['repeatDay'], $_POST['repeatTime']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);

@@ -82,7 +82,9 @@ class Account extends Model
                         "password" => password_hash($student["studentID"], PASSWORD_BCRYPT),
                         "name" => $student["studentName"],
                         "authority" => 1,
-                        "email" => $student['studentID']."@mail.ntou.edu.tw" 
+                        "email" => $student['studentID']."@mail.ntou.edu.tw" ,
+                        "department" => $student['department'],
+                        "grade" => $student['grade']
                     ]);
             }
         }

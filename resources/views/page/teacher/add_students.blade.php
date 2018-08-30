@@ -36,86 +36,137 @@
 
 @section('custom_js')
 
-    function changeFileName( file ) {
-        
-        let nameLabel = document.getElementById('file_name_label');
-        
-        if (file && file.files[0]) {
-            
-            const fileName = file.files[0].name;
-        
-            nameLabel.innerHTML = fileName;
-        
-        } else {
-            
-            nameLabel.innerHTML = "Choose file";
-
-        }
-    }
+// to show file name on input blank
+function changeFileName( file ) {
     
-    function handleAmountClick() {
+    let nameLabel = document.getElementById('file_name_label');
+    
+    if (file && file.files[0]) {
         
-        let studentTotal = document.getElementById('student_total').value;
-        let formDiv = document.getElementById('key_in_student');
+        const fileName = file.files[0].name;
+    
+        nameLabel.innerHTML = fileName;
+    
+    } else {
         
-        formDiv.innerHTML = "";
-        document.getElementById('btn_submit_total').remove();
-                
-        let newLabel = document.createElement('label');
-        newLabel.innerHTML = "Please enter students info:";
+        nameLabel.innerHTML = "Choose file";
+
+    }
+}
+
+// generate input blank to fill in
+function handleAmountClick() {
+    
+    // get the amount of student
+    let studentTotal = document.getElementById('student_total').value;
+    
+    // clear origin form
+    let formDiv = document.getElementById('key_in_student');    
+    formDiv.innerHTML = "";
+    document.getElementById('btn_submit_total').remove();
+    
+    // new form
+    let newLabel = document.createElement('label');
+    newLabel.innerHTML = "Please enter students info:";
+    
+    formDiv.appendChild(newLabel);
+    
+    for ( let index = 0; index < studentTotal; index++ ) {
         
-        formDiv.appendChild(newLabel);
+        let newDiv = document.createElement('div');
+        newDiv.classList.add("row");
         
-        for ( let index = 0; index < studentTotal; index++ ) {
-            
-            let newDiv = document.createElement('div');
-            newDiv.classList.add("row");
-            
-            let nameDiv = document.createElement('div');
-            nameDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
-            
-            let nameLabel = document.createElement('label');
-            nameLabel.innerHTML = "Student Name: ";
-            
-            let nameInput = document.createElement('input');
-            nameInput.classList.add('form-control');
-            nameInput.setAttribute('name', 'studentName[]');
-            nameInput.setAttribute('placeholder', 'Name');
-            nameInput.setAttribute('required', true);
-            
-            nameDiv.appendChild(nameLabel);
-            nameDiv.appendChild(nameInput);
-            
-            newDiv.appendChild(nameDiv);
-            
-            //-------------------------------------------------//
-           
-            let idDiv = document.createElement('div');
-            idDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
-            
-            let idLabel = document.createElement('label');
-            idLabel.innerHTML = "Student ID: ";
-            
-            let idInput = document.createElement('input');
-            idInput.classList.add('form-control');
-            idInput.setAttribute('name', 'studentID[]');
-            idInput.setAttribute('placeholder', 'studentID(Account)');
-            idInput.setAttribute('required', true);
-            
-            idDiv.appendChild(idLabel);
-            idDiv.appendChild(idInput);
-            
-            newDiv.appendChild(idDiv);
-            
-            formDiv.appendChild(newDiv);
-            
-            if (index !== studentTotal-1)
-            {
-                let newHR = document.createElement('hr');
-                formDiv.appendChild(newHR);
-            }
+        // student name
+        let nameDiv = document.createElement('div');
+        nameDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
+        
+        let nameLabel = document.createElement('label');
+        nameLabel.innerHTML = "Student Name: ";
+        
+        let nameInput = document.createElement('input');
+        nameInput.classList.add('form-control');
+        nameInput.setAttribute('name', 'studentName[]');
+        nameInput.setAttribute('placeholder', 'Name');
+        nameInput.setAttribute('required', true);
+        
+        nameDiv.appendChild(nameLabel);
+        nameDiv.appendChild(nameInput);
+        
+        newDiv.appendChild(nameDiv);
+        
+        //-------------------------------------------------//
+        // student id
+        let idDiv = document.createElement('div');
+        idDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
+        
+        let idLabel = document.createElement('label');
+        idLabel.innerHTML = "Student ID: ";
+        
+        let idInput = document.createElement('input');
+        idInput.classList.add('form-control');
+        idInput.setAttribute('name', 'studentID[]');
+        idInput.setAttribute('placeholder', 'studentID(Account)');
+        idInput.setAttribute('required', true);
+        
+        idDiv.appendChild(idLabel);
+        idDiv.appendChild(idInput);
+        
+        newDiv.appendChild(idDiv);
+        
+        //-------------------------------------------------//
+        // student department
+        let deptDiv = document.createElement('div');
+        deptDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
+        
+        let deptLabel = document.createElement('label');
+        deptLabel.innerHTML = "Department: ";
+        
+        let deptInput = document.createElement('input');
+        deptInput.classList.add('form-control');
+        deptInput.setAttribute('name', 'department[]');
+        deptInput.setAttribute('placeholder', 'Department');
+        deptInput.setAttribute('required', true);
+        
+        deptDiv.appendChild(deptLabel);
+        deptDiv.appendChild(deptInput);
+        
+        newDiv.appendChild(deptDiv);
+        
+        //-------------------------------------------------//
+        // student grade
+        let gradeDiv = document.createElement('div');
+        gradeDiv.className = 'col-md-6 col-sm-12 col-12 form-group';
+        
+        let gradeLabel = document.createElement('label');
+        gradeLabel.innerHTML = "Grade: ";
+        
+        let gradeInput = document.createElement('input');
+        gradeInput.classList.add('form-control');
+        gradeInput.setAttribute('name', 'grade[]');
+        gradeInput.setAttribute('type', 'number');
+        gradeInput.setAttribute('min', '1');
+        gradeInput.setAttribute('max', '8');
+        gradeInput.setAttribute('placeholder', 'Grade');
+        gradeInput.setAttribute('required', true);
+        
+        gradeDiv.appendChild(gradeLabel);
+        gradeDiv.appendChild(gradeInput);
+        
+        newDiv.appendChild(gradeDiv);
+        
+        //-------------------------------------------------//
+        
+        // append to form
+        formDiv.appendChild(newDiv);
+        
+        // make division
+        if (index !== studentTotal-1)
+        {
+            let newHR = document.createElement('hr');
+            formDiv.appendChild(newHR);
         }
     }
+}
     
 @endsection
 

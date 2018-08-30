@@ -1,2 +1,2 @@
-StudentName,StudentID
-"Jing, Wang",00457008
+StudentName,StudentID,Department,Grade
+"Tony, Wang",00457008,Computer Science and Engineering,4

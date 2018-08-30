@@ -77,7 +77,7 @@ addEventListener('load', fillScheduleTable, false);
         <div class="schedule">
             <h1> Schedule</h1>
             
-            <table class="table table-striped align-middle">
+            <table class="table table-striped align-middle table-hover">
                 <thead>
                     <tr>
                         <th scope="col">#</th>

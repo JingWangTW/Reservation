@@ -41,6 +41,25 @@
                 </div>
                 
                 <div class="form-group">
+                    <label for="basic-url">Repeat</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"> Every </span>
+                        </div>
+                        <input type="number" class="form-control" id="day" name="repeatDay" value="0" min="0" required>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Day.</span>
+                            <span class="input-group-text">For</span>
+                        </div>
+                        <input type="number" class="form-control" id="time" name="repeatTime" value="0" min="0" required>
+                        <div class="input-group-append">
+                            <span class="input-group-text">Times.</span>
+                        </div>
+                    </div>
+                    <small class="form-text text-danger">Just leave zero, if the class doesn't need repeat.</small>
+                </div>
+                
+                <div class="form-group">
                     <label for="assistant">Assign Assistant</label>
                     <select class="form-control" id="assistant" name="assistant" required>
                         @foreach ($assistantList as $assistant)

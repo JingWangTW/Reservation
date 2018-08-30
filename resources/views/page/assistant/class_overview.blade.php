@@ -76,7 +76,6 @@ function init() {
     list = document.createElement('li');
     list.innerHTML = `Class Room: ${classData.class_room}`;
     classInfo.appendChild(list);
-    
 
 }
 
@@ -85,13 +84,21 @@ addEventListener('load', init, false);
 @endsection
 
 @section('content')
-    <div class="row justify-content-center">
-        <div  class="col-lg-10 col-md-11 col-sm-12 col-12">
+    <div class="row justify-content-center mx-0">
+        <div  class="col-lg-10 col-md-12 col-sm-12 col-12 mx-2">
             <div class="class-info">
-                <h1> Class Info </h1>
+                <h1 class="ml-1"> Class Info </h1>
                 <div class="row mt-2">
-                    <div class="col-md-9">
-                        <table class="table table-striped align-middle">
+                    <div class="col-lg-9 col-md-12 order-lg-1 order-2 mt-2 mt-lg-0">
+                        <table class="table table-striped table-bordered table-hover table-response">
+                            <colgroup>
+                                <col style="width:5%">
+                                <col style="width:15%">
+                                <col style="width:13%">
+                                <col style="width:20%">
+                                <col style="width:8%">
+                                <col style="width:34%">
+                            </colgroup>
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
@@ -106,14 +113,13 @@ addEventListener('load', init, false);
                             
                             </tbody>
                         </table>
-                        
                     </div>
                     
-                    <div class="col-md-3">
+                    <div class="col-lg-3 col-md-12 order-lg-2 order-1">
                         <div class="py-2 px-1 border rounded">
-                        <ul class="" id="infoBox">
-                            
-                        </ul>
+                            <ul class="" id="infoBox">
+                                
+                            </ul>
                         </div>
                     </div>
                 </div>
