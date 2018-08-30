@@ -9,6 +9,10 @@
     }
 @endsection
 
+@section('custom_nav')   
+    @include ('components.empty_nav')
+@endsection
+
 @section('content')
     <div class="warn-div">
         <h1> The rule of reservation </h1>

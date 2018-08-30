@@ -20,15 +20,16 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
     );
 
     $router->get ('/home', [
+        'middleware' => 'home_redirect',
         'as' => 'home', 
         'uses' => 'Page\UserPageController@home'] 
     );
 });
 
 // all student pages parts
-$router->group(['middleware' => ['auth', 'student']], function () use ($router) {
+$router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], function () use ($router) {
 
-    $router->get ('/student', [
+    $router->get ('/', [
         'as' => 'student_home', 
         'uses' => 'Page\StudentPageController@home'] 
     );
@@ -36,18 +37,54 @@ $router->group(['middleware' => ['auth', 'student']], function () use ($router) 
 });
 
 // all assistant pages parts
-$router->group(['middleware' => ['auth', 'assistant']], function () use ($router) {
+$router->group(['middleware' => ['auth', 'assistant'], 'prefix' => '/assistant'], function () use ($router) {
 
-    $router->get ('/assistant', [
+    $router->get ('/', [
         'as' => 'assistant_home', 
         'uses' => 'Page\AssistantPageController@home'] 
     );
     
+    // add middle ware to check authorization
+    $router->group(['middleware' => ['assistant_authorization']], function () use ($router) {
+
+        $router->get ('/class_overview/{class_index}', [
+            'as' => 'assistant_class_overview', 
+            'uses' => 'Page\AssistantPageController@classOverview'] 
+        );
+    });
+    
 });
 
 // all teacher pages parts
-$router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
+$router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], function () use ($router) {
 
+
+    $router->get ('/', [
+        'as' => 'teacher_home', 
+        'uses' => 'Page\TeacherPageController@home'] 
+    );
+    
+    $router->get ('/create_class', [
+        'as' => 'create_class', 
+        'uses' => 'Page\TeacherPageController@createClass'] 
+    );
+    
+    $router->get ('/add_students', [
+        'as' => 'add_students', 
+        'uses' => 'Page\TeacherPageController@addStudents'] 
+    );
+    
+    $router->get ('/new_reservation', [
+        'as' => 'add_reservation', 
+        'uses' => 'Page\TeacherPageController@newReservation'] 
+    );
+    
+    $router->get ('/new_assistant', [
+        'as' => 'new_assistant', 
+        'uses' => 'Page\TeacherPageController@newAssistant'] 
+    );
+
+/*
     $router->get ('/teacher', [
         'as' => 'teacher_home', 
         'uses' => 'Page\TeacherPageController@home'] 
@@ -57,7 +94,6 @@ $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) 
         'as' => 'create_class', 
         'uses' => 'Page\TeacherPageController@createClass'] 
     );
-    
     
     $router->get ('/teacher/add_students', [
         'as' => 'add_students', 
@@ -73,6 +109,7 @@ $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) 
         'as' => 'new_assistant', 
         'uses' => 'Page\TeacherPageController@newAssistant'] 
     );
+*/
 });
 
 // all api parts
@@ -86,10 +123,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
 
-        $router->post('reserve_reservation', 'API\StudentController@reserveReservation');
+        $router->post('making_reservation', 'API\StudentController@makingReservation');
     
     });
-    
     
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 

@@ -8,7 +8,7 @@ class ClassManager extends Model
 {
     public static function createClass ( $className, $academicYear, $semester )
     {
-        $index = "C".time().mt_rand()
+        $index = "C".time().mt_rand();
         try
         {
             return DB::table('class')->insert([

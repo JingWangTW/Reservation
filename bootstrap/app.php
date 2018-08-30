@@ -71,12 +71,18 @@ $app->bind(\Illuminate\Session\SessionManager::class, function () use ($app) {
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
+// page authorization
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,
     'warn' => App\Http\Middleware\Page\Warn::class,
     'teacher' => App\Http\Middleware\Page\Teacher::class,
     'assistant' => App\Http\Middleware\Page\Assistant::class,
     'student' => App\Http\Middleware\Page\Student::class,
+]);
+
+$app->routeMiddleware([
+    'assistant_authorization' => App\Http\Middleware\Authorization\Assistant::class,
+    'home_redirect' => App\Http\Middleware\Authorization\HomeRedirect::class,
 ]);
 
 $app->middleware([

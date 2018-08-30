@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
-    public function reserveReservation ( Request $request )
+    public function makingReservation ( Request $request )
     {
         if ( isset($_POST["classIndex"]) && isset($_POST["question"]) )
         {

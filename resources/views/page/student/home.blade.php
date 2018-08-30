@@ -191,12 +191,12 @@ addEventListener('load', drawSchedule, false);
                         <span aria-hidden="true">&times;</span>
                     </button>
                  </div>
-                 <form action="/api/reserve_reservation" method="POST">
+                 <form action="/api/making_reservation" method="POST">
                      <div class="modal-body" id="question">
                         <div class="form-group row">
                             <label for="classIndex" class="col-sm-3 col-form-label">Class Index</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="classIndex" name="classIndex" readonly>
+                                <input type="text" class="form-control form-control-plaintext" id="classIndex" name="classIndex" readonly>
                             </div>
                         </div>
                         

@@ -59,6 +59,7 @@ class Reservation extends Model
     
     public static function studentMakingReservation ( $classIndex, $question, $userAccount )
     {
+        // insert reservation record to db
         try
         {
             return DB::table('reservation_record')->insert([
@@ -70,7 +71,66 @@ class Reservation extends Model
         } catch ( Exception $exception ) {
             return false;
         }
+    }
+    
+    public static function getClassListByAssistant ( $assistant )
+    {
+        // query builder
+        $classList = DB::table('reservation_class')
+            -> where ( 'assistant',  '=', $assistant )
+            -> get();
         
+        return $classList;
+    }
+    
+    // get only info in reservation_class table
+    public static function getClassInfo ( $classIndex )
+    {
+        $classList = DB::table('reservation_class')
+            -> where ( 'class_index',  '=', $classIndex )
+            -> first();
+            
+        return $classList;
+    }
+    
+    // get the whole info of class, include student name, student email, questions. 
+    public static function getClass ( $classIndex )
+    {
+        // get the class info
+        $classInfo = Reservation::getClassInfo( $classIndex );
+            
+        // get all student info
+        $studentInfo = DB::table('reservation_record')
+            // join the account table, to get the info of assistant
+            ->join('account', function( $join ) use ($classIndex)
+                {
+                    // condition to join table
+                    $join->on('reservation_record.student_account', '=', 'account.account')
+                        -> where ( 'reservation_record.class_index', ">=", $classIndex );
+                })
+            // only selest the column that need
+            -> select ( 'reservation_record.question', 
+                        'account.account as student_id', 
+                        'account.name', 
+                        'account.department',
+                        'account.grade'
+                        ) 
+            ->get();
+        
+        $classInfo->student = $studentInfo;
+            
+            /*
+            // only selest the column that need
+            -> select ( 'reservation_class.class_index', 
+                        'reservation_class.class_name', 
+                        'reservation_class.class_room', 
+                        'reservation_class.start_time', 
+                        'reservation_class.end_time', 
+                        'reservation_class.assistant as assistant_index',
+                        'account.name as assistant_name') ->get();
+                        */
+        
+        return (array)$classInfo;
     }
     
 }

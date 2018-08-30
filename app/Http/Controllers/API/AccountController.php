@@ -17,15 +17,8 @@ class AccountController extends Controller
             {
                 $request->session()->put("token", $info['token']);
                 
-                // after login, return different page
-                if ( $info['authority'] == 3)
-                    return redirect()->route('teacher_home');
-                else if ( $info['authority'] == 2)
-                    return redirect()->route('assistant_home');
-                else if ( $info['authority'] == 1)
-                    return redirect()->route('student_home');
-                else
-                    return redirect()->route('home');
+                // return to home after login
+                return redirect()->route('home');
             }
             else
             {

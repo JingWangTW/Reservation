@@ -40,7 +40,7 @@ class Account extends Model
                 return ['token' => $token, 'authority' => $findAccount -> authority];
             }
             else
-            {return "false";
+            {
                 return false;
             }
         }
