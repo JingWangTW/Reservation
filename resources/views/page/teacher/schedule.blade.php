@@ -5,10 +5,8 @@
 @section('custom_css')
     .schedule
     {
-        padding: 3rem 1.5rem;
         text-align: center;
     }
-
 @endsection
 
 @section('custom_js')
@@ -20,7 +18,7 @@ const classList = JSON.parse(__Class.replace(new RegExp("&quot;", 'g'), "\""));
 let __Assistant = "{{ json_encode($classList) }}";
 const assistantList = JSON.parse(__Assistant.replace(new RegExp("&quot;", 'g'), "\""));  
 
-const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', minute: '2-digit' };
+const dateOptions = { weekday: 'short', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit' };
 
 console.log ( classList);
 console.log (assistantList);
@@ -79,8 +77,6 @@ function fillScheduleTable () {
         col.appendChild(editButton);
         col.appendChild(viewButton);
         newRow.appendChild(col);
-        
-        
         
         tableContentNode.appendChild(newRow);
     }

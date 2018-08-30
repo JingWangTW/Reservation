@@ -8,10 +8,6 @@
 @section('title', 'Home Page')
 
 @section('custom_css')
-    .schedule
-    {
-        padding: 1.5rem;
-    }
     #timetable
     {
         font-family: consolas;

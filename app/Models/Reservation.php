@@ -69,8 +69,7 @@ class Reservation extends Model
                     // condition to join table
                     $join->on('reservation_class.assistant', '=', 'account.account')
                         -> where ( 'reservation_class.start_time', ">=", $currentDate )
-                        -> where ( 'reservation_class.end_time', "<", $lastDate )
-                        -> orderBy('start_time', 'asec');
+                        -> where ( 'reservation_class.end_time', "<", $lastDate );
                 })
             // only selest the column that need
             -> select ( 'reservation_class.class_index', 
@@ -78,7 +77,9 @@ class Reservation extends Model
                         'reservation_class.class_room', 
                         'reservation_class.start_time', 
                         'reservation_class.end_time', 
-                        'account.name as assistant_name') ->get();
+                        'account.name as assistant_name')
+            -> orderBy ('reservation_class.start_time', 'asc')
+            -> get();
         
         return $classList;
     }
@@ -93,9 +94,8 @@ class Reservation extends Model
                     $currentDate = date('Y-m-d');
                     
                     // condition to join table
-                    $join->on('reservation_class.assistant', '=', 'account.account')
-                        -> where ( 'reservation_class.start_time', ">=", $currentDate )
-                        -> orderBy('start_time', 'asec');
+                    $join -> on('reservation_class.assistant', '=', 'account.account')
+                          -> where ( 'reservation_class.start_time', ">=", $currentDate );
                 })
             // only selest the column that need
             -> select ( 'reservation_class.class_index', 
@@ -103,7 +103,10 @@ class Reservation extends Model
                         'reservation_class.class_room', 
                         'reservation_class.start_time', 
                         'reservation_class.end_time', 
-                        'account.name as assistant_name') ->get();
+                        'account.name as assistant_name'
+                )
+            -> orderBy ('reservation_class.start_time', 'asc')
+            -> get();
         
         return $classList;
     }
@@ -129,6 +132,7 @@ class Reservation extends Model
         // query builder
         $classList = DB::table('reservation_class')
             -> where ( 'assistant',  '=', $assistant )
+            -> orderBy ('start_time', 'asc')
             -> get();
         
         return $classList;

@@ -5,7 +5,6 @@
 @section('custom_css')
     .schedule
     {
-        padding: 3rem 1.5rem;
         text-align: center;
     }
     #scheduleContent tr 
