@@ -29,8 +29,6 @@ function fillScheduleTable () {
     // go through each row
     for (let index = 0; index < classList.length; index++ ) {
         
-        let newAnchor = document.createElement('a');
-        
         let newRow = document.createElement('tr');
         
         // index

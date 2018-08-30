@@ -6,6 +6,7 @@
     <div class="container">
         <div class="row justify-content-center">
             <form class="col-lg-8 col-md-10 col-sm-12 col-12" action="/api/add_reservation" method="POST">
+                <h1 class="text-muted">New Reservation Class</h1>
                 <div class="form-group">
                     <label for="className">Class Name</label>
                     <input type="text" class="form-control" id="className" placeholder="Class Name" name="className" required>

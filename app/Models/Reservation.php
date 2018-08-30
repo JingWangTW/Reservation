@@ -78,7 +78,31 @@ class Reservation extends Model
                         'reservation_class.class_room', 
                         'reservation_class.start_time', 
                         'reservation_class.end_time', 
-                        'reservation_class.assistant as assistant_index',
+                        'account.name as assistant_name') ->get();
+        
+        return $classList;
+    }
+    
+    public static function getFutureAllClass ()
+    {
+        // query builder
+        $classList = DB::table('reservation_class')
+            ->join('account', function( $join )         // join the account table, to get the name of assistant
+                {
+                    // set the date limit to query
+                    $currentDate = date('Y-m-d');
+                    
+                    // condition to join table
+                    $join->on('reservation_class.assistant', '=', 'account.account')
+                        -> where ( 'reservation_class.start_time', ">=", $currentDate )
+                        -> orderBy('start_time', 'asec');
+                })
+            // only selest the column that need
+            -> select ( 'reservation_class.class_index', 
+                        'reservation_class.class_name', 
+                        'reservation_class.class_room', 
+                        'reservation_class.start_time', 
+                        'reservation_class.end_time', 
                         'account.name as assistant_name') ->get();
         
         return $classList;

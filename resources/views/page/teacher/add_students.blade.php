@@ -174,7 +174,7 @@ function handleAmountClick() {
     <div class="container">
         <div class="row justify-content-center">
             <form class="col-md-10 col-sm-12 col-12" action="/api/add_students" method="POST" enctype="multipart/form-data">
-            
+                <h1 class="text-muted">Add Students</h1>
                 <fieldset class="mb-3">
                     <legend class="px-2"> Class </legend>
                     

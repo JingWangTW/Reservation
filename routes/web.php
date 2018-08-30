@@ -83,33 +83,11 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
         'as' => 'new_assistant', 
         'uses' => 'Page\TeacherPageController@newAssistant'] 
     );
-
-/*
-    $router->get ('/teacher', [
-        'as' => 'teacher_home', 
-        'uses' => 'Page\TeacherPageController@home'] 
-    );
     
-    $router->get ('/teacher/create_class', [
-        'as' => 'create_class', 
-        'uses' => 'Page\TeacherPageController@createClass'] 
+    $router->get ('/schedule', [
+        'as' => 'schedule', 
+        'uses' => 'Page\TeacherPageController@schedule'] 
     );
-    
-    $router->get ('/teacher/add_students', [
-        'as' => 'add_students', 
-        'uses' => 'Page\TeacherPageController@addStudents'] 
-    );
-    
-    $router->get ('/teacher/new_reservation', [
-        'as' => 'add_reservation', 
-        'uses' => 'Page\TeacherPageController@newReservation'] 
-    );
-    
-    $router->get ('/teacher/new_assistant', [
-        'as' => 'new_assistant', 
-        'uses' => 'Page\TeacherPageController@newAssistant'] 
-    );
-*/
 });
 
 // all api parts
