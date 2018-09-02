@@ -2,87 +2,6 @@
 
 @section('title', 'Class Overview')
 
-@section('custom_js')
-
-function init() {
-    
-    const dateOptions = { month: 'short', day: 'numeric', minute: '2-digit', second: '2-digit' };
-
-    // convert php array to JS object
-    let classData = "{{ json_encode($classInfo) }}";
-    classData = JSON.parse(classData.replace(new RegExp("&quot;", 'g'), "\""));
-    
-    // student table part
-    let studentTable = document.getElementById('studentInfo');
-    
-    // student info part
-    classData.student.forEach(( student, index ) => {
-        
-        let newRow = document.createElement('tr');
-        
-        // index col
-        let headCol = document.createElement('th');
-        headCol.setAttribute('scope', 'col');
-        headCol.innerHTML = index + 1;
-        newRow.appendChild(headCol);
-        
-        // student name
-        let col = document.createElement('td');
-        col.innerHTML = student.name;
-        newRow.appendChild(col);
-        
-        // student ID
-        col = document.createElement('td');
-        col.innerHTML = student.student_id;
-        newRow.appendChild(col);
-        
-        // student department
-        col = document.createElement('td');
-        col.innerHTML = student.department;
-        newRow.appendChild(col);
-        
-        // student grade
-        col = document.createElement('td');
-        col.innerHTML = student.grade;
-        newRow.appendChild(col);
-        
-        // student question
-        col = document.createElement('td');
-        col.innerHTML = student.question;
-        newRow.appendChild(col);
-        
-        studentTable.appendChild(newRow);
-    });
-    
-    // class info part
-    let classInfo = document.getElementById('infoBox');
-    
-    // class name
-    let list = document.createElement('li');
-    list.innerHTML = `Class Name: ${classData.class_name}`;
-    classInfo.appendChild(list);
-    
-    // start time
-    list = document.createElement('li');
-    list.innerHTML = `Start Time: ${new Date(classData.start_time).toLocaleDateString('en-US', dateOptions)}`;
-    classInfo.appendChild(list);
-    
-    // end time
-    list = document.createElement('li');
-    list.innerHTML = `End Time: ${new Date(classData.start_time).toLocaleDateString('en-US', dateOptions)}`;
-    classInfo.appendChild(list);
-    
-    // class room
-    list = document.createElement('li');
-    list.innerHTML = `Class Room: ${classData.class_room}`;
-    classInfo.appendChild(list);
-
-}
-
-addEventListener('load', init, false);
-
-@endsection
-
 @section('content')
     <div class="row justify-content-center mx-0">
         <div  class="col-lg-10 col-md-12 col-sm-12 col-12 mx-2">
@@ -110,7 +29,16 @@ addEventListener('load', init, false);
                                 </tr>
                             </thead>
                             <tbody id="studentInfo">
-                            
+                                @foreach ($classInfo['student'] as $student)
+                                    <tr>
+                                        <th scope="col">{{$loop->index+1}}</th>
+                                        <td>{{$student->name}}</th>
+                                        <td>{{$student->student_id}}</th>
+                                        <td>{{$student->department}}</th>
+                                        <td>{{$student->grade}}</th>
+                                        <td>{{$student->question}}</th>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -118,7 +46,10 @@ addEventListener('load', init, false);
                     <div class="col-lg-3 col-md-12 order-lg-2 order-1">
                         <div class="py-2 px-1 border rounded">
                             <ul class="" id="infoBox">
-                                
+                                <li>Class Name: {{$classInfo['class_name']}}</li>
+                                <li>Start Time: {{$classInfo['start_time']}}</li>
+                                <li>End Time: {{$classInfo['end_time']}}</li>
+                                <li>Class Room: {{$classInfo['class_room']}}</li>
                             </ul>
                         </div>
                     </div>

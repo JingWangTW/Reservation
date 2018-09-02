@@ -14,58 +14,10 @@
 @endsection
 
 @section('custom_js')
-    
-function fillScheduleTable () {
-    
-    const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit', minute: '2-digit', second: '2-digit' };
 
-    // convert php array to JS object
-    let classList = "{{ json_encode($classList) }}";
-    classList = JSON.parse(classList.replace(new RegExp("&quot;", 'g'), "\""));
-    
-    let tableContentNode = document.getElementById("scheduleContent");
-    
-    // go through each row
-    for (let index = 0; index < classList.length; index++ ) {
-        
-        let newRow = document.createElement('tr');
-        
-        // index
-        let headCol = document.createElement('th');
-        headCol.setAttribute('scope', 'row');
-        headCol.innerHTML = index + 1;
-        newRow.appendChild(headCol);
-        
-        // class name
-        let col = document.createElement('td');
-        col.innerHTML = classList[index].class_name;
-        newRow.appendChild(col);
-        
-        // class start time
-        col = document.createElement('td');
-        col.innerHTML = new Date(classList[index].start_time).toLocaleDateString('en-US', dateOptions);
-        newRow.appendChild(col);
-        
-        // class end time
-        col = document.createElement('td');
-        col.innerHTML = new Date(classList[index].end_time).toLocaleDateString('en-US', dateOptions);
-        newRow.appendChild(col);
-        
-        // class room
-        col = document.createElement('td');
-        col.innerHTML = classList[index].class_room;
-        newRow.appendChild(col);
-        
-        // redirect to view page
-        newRow.addEventListener( 'click', () => {
-            window.location.href = `/assistant/class_overview/${classList[index].class_index}`; 
-        }, false );
-        
-        tableContentNode.appendChild(newRow);
-    }
+function redirectClass ( classIndex ) {
+    window.location.href = `/assistant/class_overview/${classIndex}`; 
 }
-
-addEventListener('load', fillScheduleTable, false);
 
 @endsection
 
@@ -85,7 +37,15 @@ addEventListener('load', fillScheduleTable, false);
                     </tr>
                 </thead>
                 <tbody id="scheduleContent">
-                
+                    @foreach ($classList as $class)
+                        <tr onclick="redirectClass('{{$class->class_index}}')">
+                            <th scope="col">{{$loop->index+1}}</th>
+                            <td>{{$class->class_name}}</th>
+                            <td>{{$class->start_time}}</th>
+                            <td>{{$class->end_time}}</th>
+                            <td>{{$class->class_room}}</th>
+                        </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

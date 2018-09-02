@@ -39,8 +39,8 @@ function drawSchedule() {
     const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' };
     
     // convert php array to JS object
-    let classList = "{{ json_encode($classList) }}";
-    classList = JSON.parse(classList.replace(new RegExp("&quot;", 'g'), "\""));
+    let classList = @json($classList);
+    console.log(classList);
     
     let timetable = new Timetable();
     
@@ -87,6 +87,7 @@ function drawSchedule() {
 function clickClass ( classData ) {
     
     currentClass = classData;
+    console.log(classData);
     
     // get the dom node to fill in
     let cardTitleNode = document.getElementById('className');

@@ -95,10 +95,14 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->post('agree', 'API\UserController@signAgreeWarn');
     
-    $router->post('login', 'API\AccountController@login');
-    
     $router->get ('logout', 'API\AccountController@logout');
     
+    $router->group(['middleware' => 'warn'], function ()  use ($router) {
+
+        $router->post('login', 'API\AccountController@login');
+    
+    });
+
     $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
 
         $router->post('making_reservation', 'API\StudentController@makingReservation');
@@ -110,7 +114,10 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('create_class', 'API\TeacherController@createClass');
         $router->post('add_students', 'API\TeacherController@addStudents');
         $router->post('add_assistant', 'API\TeacherController@addAssistant');
-        $router->post('add_reservation', 'API\TeacherController@addReservation');
+        $router->post('add_reservation_class', 'API\TeacherController@addReservationClass');
+        $router->post('edit_reservation_class', 'API\TeacherController@editReservationClass');
+        $router->post('delete_reservation_class', 'API\TeacherController@deleteReservationClass');
+        
     
     });
 });

@@ -35,6 +35,7 @@ class AccountController extends Controller
     {
         Account::logout( $request->session()->get("token") );
         $request->session()->pull("token");
+        $request->session()->pull("agree");
         
         return redirect()->route('home');
     }

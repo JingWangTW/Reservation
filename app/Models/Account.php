@@ -94,12 +94,12 @@ class Account extends Model
     {
 
         $findAccount = DB::table("account")
-                    ->where("authority", "=", 1)
+                    ->where("authority", "=", 2)
                     ->where("account", "=", $email)
                     ->first();
         
         // check is find the smae assistant
-        if ( !is_null($findAccount) )
+        if ( is_null($findAccount) )
         {
             return DB::table("account")
                 ->insert([

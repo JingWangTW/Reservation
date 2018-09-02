@@ -36,7 +36,7 @@ class Reservation extends Model
             
             try
             {
-                DB::table('reservation_class')->insert([
+                return DB::table('reservation_class')->insert([
                     'class_name' => $className,
                     'class_room' => $classRoom,
                     'start_time' => $newStartTime,
@@ -52,6 +52,40 @@ class Reservation extends Model
         }
         
         return true;
+    }
+    
+    public static function editReservation ( $classIndex, $className, $classRoom, $startTime, $endTime, $assistant )
+    {
+        try
+        {
+            return DB::table('reservation_class')
+                -> where ('class_index', '=', $classIndex)
+                -> update([
+                        'class_name' => $className,
+                        'class_room' => $classRoom,
+                        'start_time' => $startTime,
+                        'end_time' => $endTime,
+                        'assistant' => $assistant
+                    ]);                
+        } 
+        catch( Exception $exception )
+        {
+            return false;
+        }
+    }
+    
+    public static function deleteReservation ( $classIndex )
+    {
+        try
+        {
+            return DB::table('reservation_class')
+                -> where ('class_index', '=', $classIndex)
+                -> delete()  ;
+        } 
+        catch( Exception $exception )
+        {
+            return false;
+        }
     }
     
     public static function get2WeeksReservationClass () 
@@ -173,17 +207,6 @@ class Reservation extends Model
             ->get();
         
         $classInfo->student = $studentInfo;
-            
-            /*
-            // only selest the column that need
-            -> select ( 'reservation_class.class_index', 
-                        'reservation_class.class_name', 
-                        'reservation_class.class_room', 
-                        'reservation_class.start_time', 
-                        'reservation_class.end_time', 
-                        'reservation_class.assistant as assistant_index',
-                        'account.name as assistant_name') ->get();
-                        */
         
         return (array)$classInfo;
     }
