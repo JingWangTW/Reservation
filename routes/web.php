@@ -88,6 +88,11 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
         'as' => 'schedule', 
         'uses' => 'Page\TeacherPageController@schedule'] 
     );
+    
+    $router->get ('/class_overview/{class_index}', [
+        'as' => 'teacher_class_overview', 
+        'uses' => 'Page\TeacherPageController@classOverview'] 
+    );
 });
 
 // all api parts

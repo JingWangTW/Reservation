@@ -48,4 +48,11 @@ class TeacherPageController extends Controller
         return view('page.teacher.schedule', ['assistantList' => $assistantList, 'classList' => $classList]);
     }
     
+    public function classOverview ( Request $request )
+    {
+        $classInfo = Reservation::getClass( route_parameter('class_index') );
+        
+        return view('page.teacher.class_overview', ['classInfo' => $classInfo]);
+    }
+    
 }
