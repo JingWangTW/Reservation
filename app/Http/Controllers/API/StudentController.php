@@ -14,7 +14,6 @@ class StudentController extends Controller
     {
         if ( isset($_POST["classIndex"]) && isset($_POST["question"]) )
         {
-            
             $status = Reservation::studentMakingReservation ($_POST["classIndex"], $_POST["question"], \Auth::user()->id);
             
             if ( $status ) {

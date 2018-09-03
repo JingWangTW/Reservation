@@ -28,6 +28,7 @@ $app = new Laravel\Lumen\Application(
  $app->withEloquent();
 
 $app->configure('session');
+$app->configure('mail');
 
 /*
 |--------------------------------------------------------------------------
@@ -104,7 +105,7 @@ $app->middleware([
 $app->register(App\Providers\AuthServiceProvider::class);
 // $app->register(App\Providers\EventServiceProvider::class);
 $app->register(\Illuminate\Session\SessionServiceProvider::class);
-
+$app->register(\Illuminate\Mail\MailServiceProvider::class);
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

@@ -24,6 +24,11 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
         'as' => 'home', 
         'uses' => 'Page\UserPageController@home'] 
     );
+    
+    $router->get ('/forget', [
+        'as' => 'forget_password', 
+        'uses' => 'Page\UserPageController@forgetPassword'] 
+    );
 });
 
 // all student pages parts
@@ -99,8 +104,9 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
 $router->group(['prefix' => 'api'], function () use ($router) {
     
     $router->post('agree', 'API\UserController@signAgreeWarn');
-    
     $router->get ('logout', 'API\AccountController@logout');
+    $router->post('forget_pwd', 'API\AccountController@forgetPwd');
+    $router->post('reset_pwd', 'API\AccountController@resetPwd');
     
     $router->group(['middleware' => 'warn'], function ()  use ($router) {
 
@@ -134,9 +140,14 @@ $router->group(['prefix' => 'file'], function () use ($router) {
     
 });
 
+$router->get ('/verifyMail/{token}', [
+    'as' => 'verify_mail', 
+    'uses' => 'Page\UserPageController@verifyMail'] 
+);
+
 
 $router->get('hash_password', function(){
-    return password_hash("test", PASSWORD_BCRYPT);
+    return password_hash("admin", PASSWORD_BCRYPT);
 });
 
 

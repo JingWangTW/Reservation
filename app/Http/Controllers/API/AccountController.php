@@ -26,7 +26,7 @@ class AccountController extends Controller
             }
         }
         else
-        {return 'error';
+        {
             return redirect()->route('welcome');
         }
     }
@@ -38,5 +38,38 @@ class AccountController extends Controller
         $request->session()->pull("agree");
         
         return redirect()->route('home');
+    }
+    
+    public function forgetPwd ( Request $request )
+    {
+        if ( isset($_POST["email"]) )
+        {
+            Account::sendForgetMail( $_POST["email"] );
+            
+            return redirect()->route('home');
+        }
+        else
+        {
+            return redirect()->route('welcome');
+        }
+    }
+    
+    public function resetPwd ( Request $request )
+    {
+        if ( isset($_POST["password"]) && isset($_POST["token"]) )
+        {
+            $status = Account::resetPassword( $_POST["token"], $_POST["password"] );
+            
+            //return $status;
+            if ( !is_array($status) ) {
+                return redirect()->route('home');
+            } else {
+                return view('page.utility.wrong_message', ['message' => $status['error']]);
+            }
+        }
+        else
+        {
+            return redirect()->route('welcome');
+        }
     }
 }

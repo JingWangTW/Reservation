@@ -5,6 +5,7 @@ namespace App\Models;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class Account extends Model
 {
@@ -62,6 +63,81 @@ class Account extends Model
             // if the account have been logged out
             // do nothing
         }
+    }
+    
+    public static function sendForgetMail ( $email ) {
+        
+        $user = DB::table("account")
+            ->where("email", "=", $email)
+            ->first();
+        
+        if ( !is_null($user) ) {
+            
+            $token = Utility::generateRandomString(32);
+            
+            DB::table("forget_pwd_token")->insert([
+                        'token' => $token,
+                        'account' => $user->account,
+                        'create_at' => date('Y-m-d H:i'),
+                    ]);
+            
+            $content = 'Please click the link below in 30 minutes to change your password.';
+            $content = $content."http://140.121.197.130:8106/verifyMail/$token";
+            
+            Mail::raw($content, function ($message) use ($email) {
+                $message->subject('[Reservation System] Forget Password');
+                $message->to($email);
+            });
+        }
+    }
+    
+    public static function resetPassword ( $token, $newPwd ) {
+        
+        $user = DB::table("forget_pwd_token")
+            -> where("token", "=", $token)
+            -> first();
+        
+        if ( !is_null($user) ) {
+            
+            if ( abs(time() - strtotime($user->create_at)) < 60 * 30 ) {
+                
+                DB::table('account')
+                    -> where ('account', '=', $user->account)
+                    -> update([
+                            'password' =>  password_hash($newPwd, PASSWORD_BCRYPT),
+                        ]);
+                    
+                DB::table('forget_pwd_token')
+                    -> where("token", "=", $token)
+                    -> delete();
+                    
+                return true;
+                
+            } else {
+                return ['error' => "Over Time!!"];
+            }
+        }
+        
+        return ['error' => "Invalid Token!!"];
+    }
+    
+    public static function verifyMail ( $token ) {
+        
+        $user = DB::table("forget_pwd_token")
+            ->where("token", "=", $token)
+            ->first();
+        
+        if ( !is_null($user) ) {
+            
+            if ( abs(time() - strtotime($user->create_at)) < 60 * 30 ) {
+                return true;
+            } else {
+                return ['error' => "Over Time!!"];
+            }
+        }
+        
+        return ['error' => "Invalid Token!!"];
+        
     }
     
     public static function addStudents ( $studentList )
