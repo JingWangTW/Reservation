@@ -13,7 +13,7 @@
 @section('title', 'Home Page')
 
 @section('custom_css')
-    #schedule
+    #schedule, .legend
     {
         font-family: consolas;
     }
@@ -24,6 +24,22 @@
     }
     .reserved {
         background-color: green !important;
+    }
+    span.icon {
+        height: 0px;
+        width: 0px;
+        padding-right: 20px;
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    span.icon.availbale {
+        background-color: #4f93d6;
+    }
+    span.icon.reserved {
+        background-color: green;
+    }
+    span.icon.non-free {
+        background-color: red;
     }
 @endsection
 
@@ -204,7 +220,17 @@ addEventListener('load', drawSchedule, false);
     <div class="schedule container">
         <h1> Reservation Schedule </h1>
         <p class="lead"> Click the class that you want to reserved. </p>
-        
+        <div class="text-right legend">
+            <div class="d-inline-block mt-1 mt-sm-0">
+                <span class="icon availbale"></span> Available Class
+            </div>
+            <div class="d-inline-block mt-1 mt-sm-0">
+                <span class="icon reserved"></span> Reserved Class
+            </div>
+            <div class="d-inline-block mt-1 mt-sm-0">
+                <span class="icon non-free"></span> Non-free Class
+            </div>
+        </div>
         <!-- Time Table Part -->
         <div id="schedule"></div>
         
