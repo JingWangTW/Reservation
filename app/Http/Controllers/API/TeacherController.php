@@ -115,23 +115,40 @@ class TeacherController extends Controller
         {
             $status = Account::addAssistant($_POST['name'], $_POST['email']);
             
-            if ( is_array($status)  && $status['error'] ) {
+            if ( is_array($status) ) {
                 
-                return view('page.utility.wrong_message', ['message' => $status['error']]);
-                
-            } else if ( $status ) {
-                
-                return redirect()->route('teacher_home');
+                return view('page.utility.wrong_message', ['message' => json_encode($status)]);
                 
             } else {
                 
-                return view('page.utility.wrong_message', ['message' => 'Wrong Input!']);
+                return redirect()->route('teacher_home');
                 
             }
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
     }
+    
+    public function addTeacher ( Request $request )
+    {
+        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) && isset( $_POST['account'] ) )
+        {
+            $status = Account::addTeacher($_POST['name'], $_POST['email'], $_POST['account']);
+            
+            if ( is_array($status) ) {
+                
+                return view('page.utility.wrong_message', ['message' => json_encode($status)]);
+                
+            } else {
+                
+                return redirect()->route('teacher_home');
+                
+            }
+        }
+        
+        return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+    }
+    
     
     public function addReservationClass ( Request $request )
     {

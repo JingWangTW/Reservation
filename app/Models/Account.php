@@ -194,11 +194,10 @@ class Account extends Model
     {
 
         $findAccount = DB::table("account")
-                    ->where("authority", "=", 2)
                     ->where("account", "=", $email)
                     ->first();
         
-        // check is find the smae assistant
+        // check is find the smae account
         if ( is_null($findAccount) )
         {
             return DB::table("account")
@@ -210,7 +209,29 @@ class Account extends Model
                     "email" => $email 
                 ]);
         } else {
-            return ['error' => "Find Same Assistant"];
+            return ['error' => "Assistant has been registered."];
+        }
+    }
+    
+    public static function addTeacher ( $name, $email, $account )
+    {
+        $findAccount = DB::table("account")
+                    ->where("account", "=", $account)
+                    ->first();
+        
+        // check if find the smae account
+        if ( is_null($findAccount) )
+        {
+            return DB::table("account")
+                ->insert([
+                    "account" => $account,
+                    "password" => password_hash($account, PASSWORD_BCRYPT),
+                    "name" => $name,
+                    "authority" => 3,
+                    "email" => $email 
+                ]);
+        } else {
+            return ['error' => "This account has been used."];
         }
         
     }

@@ -94,9 +94,14 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
         'uses' => 'Page\TeacherPageController@newReservation'] 
     );
     
-    $router->get ('/new_assistant', [
-        'as' => 'new_assistant', 
-        'uses' => 'Page\TeacherPageController@newAssistant'] 
+    $router->get ('/register_assistant', [
+        'as' => 'register_assistant', 
+        'uses' => 'Page\TeacherPageController@registerAssistant'] 
+    );
+    
+    $router->get ('/register_teacher', [
+        'as' => 'register_teacher', 
+        'uses' => 'Page\TeacherPageController@registerTeacher'] 
     );
     
     $router->get ('/schedule', [
@@ -149,6 +154,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('create_class', 'API\TeacherController@createClass');
         $router->post('add_students', 'API\TeacherController@addStudents');
         $router->post('add_assistant', 'API\TeacherController@addAssistant');
+        $router->post('add_teacher', 'API\TeacherController@addTeacher');
         $router->post('add_reservation_class', 'API\TeacherController@addReservationClass');
         $router->post('edit_reservation_class', 'API\TeacherController@editReservationClass');
         $router->post('delete_reservation_class', 'API\TeacherController@deleteReservationClass');

@@ -28,8 +28,8 @@
               <a class='dropdown-item' href='/teacher/create_class'>Create Class</a>
               <a class='dropdown-item' href='/teacher/add_students'>Add Students</a>
               <a class='dropdown-item' href='/teacher/new_reservation'>New Reservation Class </a>
-              <a class='dropdown-item' href='/teacher/new_assistant'>New Assistant</a>
-              <a class='dropdown-item' href='/teacher/add_admin'>Add Admin</a>
+              <a class='dropdown-item' href='/teacher/register_assistant'>Register Assistant</a>
+              <a class='dropdown-item' href='/teacher/register_teacher'>Register Teacher</a>
               <a class='dropdown-item' href='/teacher/schedule'>Reservation Class List</a>
               <a class='dropdown-item' href='/teacher/change_password'>Change Password</a>
               <a class='dropdown-item' href='/api/logout'>Logout</a>
