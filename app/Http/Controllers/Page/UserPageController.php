@@ -37,4 +37,9 @@ class UserPageController extends Controller
             return view('page.utility.wrong_message', ['message' => $status['error']]);
         }
     }
+    
+    public function changePassword( Request $request )
+    {
+        return view('page.user.change_password');
+    }
 }

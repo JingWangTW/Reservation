@@ -10,7 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
+use App\Models\Reservation as Reservation;
 // all users page part
 $router->group(['middleware' => 'warn'], function () use ($router) {
     
@@ -25,11 +25,23 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
         'uses' => 'Page\UserPageController@home'] 
     );
     
+    $router->get('test_home', function(){
+        
+        $classList =  Reservation::get2WeeksReservationClass();
+        
+        return view('page.user.test_home', ['classList' => $classList]);
+    });
+    
     $router->get ('/forget', [
         'as' => 'forget_password', 
         'uses' => 'Page\UserPageController@forgetPassword'] 
     );
 });
+
+$router->get ('/change_password', [
+    'as' => 'change_password', 
+    'uses' => 'Page\UserPageController@changePassword'] 
+);
 
 // all student pages parts
 $router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], function () use ($router) {

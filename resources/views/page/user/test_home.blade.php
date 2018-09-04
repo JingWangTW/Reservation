@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.user')
 
 @section('custom_head_file_body')
     
@@ -16,6 +16,17 @@
     #schedule
     {
         font-family: consolas;
+    }
+    .class_interval
+    {
+        font-weight: bold;
+        cursor: pointer;
+        font-family: inhereit;
+    }
+    .class_interval small
+    {
+        font-weight: bold;
+        font-size: 20px;
     }
     #questionInput 
     {
@@ -70,9 +81,9 @@ function drawSchedule() {
         startTime: '17:00',
         endTime: '22:00',
         widthTimeX: 30,
-        dataWidth: 190,
+        dataWidth: 180,
         click: clickClass,
-    });
+    })
 }
 
 function clickClass ( node, classData ) {
@@ -126,18 +137,8 @@ function clickClass ( node, classData ) {
     // fill in class index
     $('#classIndex').val(classData.class_index);
     
-    // fill in class name
-    $('#submitClassName').val(classData.class_name);
-    
     // show the class info
     $('#classCard').modal('show');
-}
-
-function showReserveForm () {
-    
-    $('#classCard').modal('hide');
-    $('#reserveForm').modal('show');
-    
 }
 
 // load schedule after render.
@@ -148,9 +149,11 @@ addEventListener('load', drawSchedule, false);
 @section('content')
     <div class="schedule container">
         <h1> Reservation Schedule </h1>
-        <p class="lead"> Click the class that you want to reserved. </p>
+        <p class="lead"> Please Login to make reservation. </p>
         
         <!-- Time Table Part -->
+        <div class="timetable" id="timetable"></div>
+        
         <div id="schedule"></div>
         
         <!-- Reservation Class Info -->
@@ -168,42 +171,7 @@ addEventListener('load', drawSchedule, false);
                  </div>
                  <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
-                    <button type="button" class="btn btn-success" onclick="showReserveForm()"> I want Reserve! </button>
                  </div>
-              </div>
-           </div>
-        </div>
-        
-        <div class="modal" id="reserveForm" tabindex="-1" role="dialog" aria-hidden="true">
-           <div class="modal-dialog modal-dialog-centered" role="document">
-              <div class="modal-content">
-                 <div class="modal-header">
-                    <h5 class="modal-title"> Please leave the question you met. </h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                 </div>
-                 <form action="/api/making_reservation" method="POST">
-                     <div class="modal-body" id="question">
-                        <input style="display: none" type="text" name="classIndex" id="classIndex" readonly>
-                        <div class="form-group row">
-                            <label for="className" class="col-sm-3 col-form-label">Class Name</label>
-                            <div class="col-sm-9">
-                                <input type="text" class="form-control form-control-plaintext" id="submitClassName" name="className" readonly>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <textarea name="question" rows="5" id="questionInput" class="px-2"
-                            placeholder="Please leave the question you want to ask on the class, or just leave it blank and click 'Check!' button to finish reservation."></textarea>
-                        </div>
-                        
-                     </div>
-                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                        <button type="submit" class="btn btn-success"> Check! </button>
-                     </div>
-                 </form>
               </div>
            </div>
         </div>

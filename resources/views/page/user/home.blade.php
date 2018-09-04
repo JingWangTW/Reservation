@@ -1,92 +1,76 @@
 @extends('layouts.user')
 
-@section('custom_head_file')
-    <link rel="stylesheet"  href="{{ 'css/timetablejs.css' }}">
-    <script src="{{'js/timetable.min.js'}}"></script>
+@section('custom_head_file_body')
+    
+    <link rel="stylesheet"href="https://code.jquery.com/ui/jquery-ui-git.css">
+    <link rel="stylesheet" href="{{ 'css/schedule.css' }}">
+    
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="{{ 'js/schedule.js' }}"></script>
+    
 @endsection
 
 @section('title', 'Home Page')
 
 @section('custom_css')
-    #timetable
+    #schedule
     {
         font-family: consolas;
-    }
-    .class_interval
-    {
-        font-weight: bold;
-        cursor: pointer;
-        font-family: inhereit;
-    }
-    .class_interval small
-    {
-        font-weight: bold;
-        font-size: 20px;
-    }
-    #questionInput 
-    {
-        width: 100%;
-        resize: none;
     }
 @endsection
 
 @section('custom_js')
-
-let currentClass = {};
 
 function drawSchedule() {
     
     const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' };
     
     // convert php array to JS object
-    let classList = "{{ json_encode($classList) }}";
-    classList = JSON.parse(classList.replace(new RegExp("&quot;", 'g'), "\""));
+    let classList = @json($classList);
     
-    let timetable = new Timetable();
-    
-    // use location field to display date
-    let dateField = [];
+    // get all rows data;
+    let classCounter = 0;
+    let rows = {};
     for ( let index = 0; index < 14; index++ ) {
         
         // get every day date
-        let date = new Date(new Date().setTime(Date.now()+1000*60*60*24*index));
+        let date = new Date(new Date().setTime(Date.now()+1000*60*60*24*index)).toLocaleDateString('en-US', dateOptions);
+        let newRow = {};
         
-        // to string
-        dateField.push(date.toLocaleDateString('en-US', dateOptions));
-    }
-    
-    // set time between 17 o'clock to 22 o'clock
-    timetable.setScope(17, 22);
-    
-    // add these dates on schedule
-    timetable.addLocations(dateField);
-    
-    // add all class on time table
-    for ( let index = 0; index < classList.length; index++ ) {
+        newRow.title = date
+        newRow.schedule = [];
         
-        let classOptions = {
-            class: 'class_interval',
-            data: classList[index],
-            onClick: clickClass,
+        // check if current class is on the date of above
+        while ( classCounter < classList.length && 
+            new Date(classList[classCounter].start_time).toLocaleDateString('en-US', dateOptions) === date ) {
+            
+            let newEvent = {};
+            newEvent.start = new Date(classList[classCounter].start_time).toLocaleTimeString('en-us', {'hour': '2-digit', 'minute': '2-digit', 'hour12': false});
+            newEvent.end = new Date(classList[classCounter].end_time).toLocaleTimeString('en-us', {'hour': '2-digit', 'minute': '2-digit', 'hour12': false});
+            newEvent.text = classList[classCounter].class_name;
+            newEvent.data = classList[classCounter];
+            
+            newRow.schedule.push(newEvent);
+            
+            classCounter++;
         }
         
-        timetable.addEvent(
-            classList[index].class_name, 
-            new Date(classList[index].start_time).toLocaleDateString('en-US', dateOptions), 
-            new Date(classList[index].start_time), 
-            new Date(classList[index].end_time),
-            classOptions
-        );
+        rows[index] = newRow;
     }
     
-    // render table on to dom object
-    let renderer = new Timetable.Renderer(timetable);
-    renderer.draw('#timetable');
+    $("#schedule").timeSchedule({
+        rows: rows,
+        startTime: '17:00',
+        endTime: '22:00',
+        widthTimeX: 30,
+        dataWidth: 190,
+        click: clickClass,
+    });
 }
 
-function clickClass ( classData ) {
+function clickClass ( node, classData ) {
     
-    currentClass = classData;
+    classData = classData.data;
     
     // get the dom node to fill in
     let cardTitleNode = document.getElementById('className');
@@ -147,8 +131,8 @@ addEventListener('load', drawSchedule, false);
         <h1> Reservation Schedule </h1>
         <p class="lead"> Please Login to make reservation. </p>
         
-        <!-- Time Table Part -->
-        <div class="timetable" id="timetable"></div>
+        <!-- Schedule Part -->
+        <div id="schedule"></div>
         
         <!-- Reservation Class Info -->
         <div class="modal fade" id="classCard" tabindex="-1" role="dialog" aria-hidden="true">
