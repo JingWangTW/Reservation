@@ -5434,3 +5434,16 @@ exit 0
 [Tue Sep  4 22:11:42 2018] 140.121.197.192:52244 [200]: /student
 [Tue Sep  4 22:11:42 2018] 140.121.197.192:52245 [200]: /css/schedule.css
 [Tue Sep  4 22:11:42 2018] 140.121.197.192:52253 [200]: /js/schedule.js
+[Tue Sep  4 22:14:10 2018] 140.121.197.192:52528 [500]: /api/delete_reservation_record
+[Tue Sep  4 22:14:29 2018] 140.121.197.192:52563 [302]: /api/delete_reservation_record
+[Tue Sep  4 22:14:29 2018] 140.121.197.192:52564 [200]: /student
+[Tue Sep  4 22:14:29 2018] 140.121.197.192:52571 [200]: /css/schedule.css
+[Tue Sep  4 22:14:29 2018] 140.121.197.192:52572 [200]: /js/schedule.js
+[Tue Sep  4 22:14:36 2018] 140.121.197.192:52585 [302]: /api/making_reservation
+[Tue Sep  4 22:14:36 2018] 140.121.197.192:52586 [200]: /student
+[Tue Sep  4 22:14:36 2018] 140.121.197.192:52587 [200]: /css/schedule.css
+[Tue Sep  4 22:14:36 2018] 140.121.197.192:52588 [200]: /js/schedule.js
+[Tue Sep  4 22:14:43 2018] 140.121.197.192:52598 [302]: /api/edit_reservation_record
+[Tue Sep  4 22:14:43 2018] 140.121.197.192:52597 [200]: /student
+[Tue Sep  4 22:14:43 2018] 140.121.197.192:52604 [200]: /css/schedule.css
+[Tue Sep  4 22:14:43 2018] 140.121.197.192:52605 [200]: /js/schedule.js

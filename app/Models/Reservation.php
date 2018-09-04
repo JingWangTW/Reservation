@@ -182,6 +182,10 @@ class Reservation extends Model
         // insert reservation record to db
         try
         {
+            $classData = (array)DB::table('reservation_class')
+                -> where ('class_index', '=', $classIndex)
+                -> first();
+                
             $startTime = new DateTime($classData['start_time']);
             $current = new DateTime();
             
