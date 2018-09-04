@@ -1,4 +1,4 @@
-@extends('layouts.user')
+@extends('layouts.teacher')
 
 @section('title', 'Change Password')
 
@@ -21,7 +21,7 @@ function checkForm() {
     <div class="schedule container">
         <h1> Change Password</h1>
         
-        <form action="/api/reset_pwd" method="POST" onsubmit="return checkForm();">
+        <form action="/api/change_pwd" method="POST" onsubmit="return checkForm();">
             <span class="text-danger" id="hint"></span>
             <div class="form-group">
                 <label for="o_password">Origin password</label>

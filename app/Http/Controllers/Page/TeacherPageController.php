@@ -55,4 +55,8 @@ class TeacherPageController extends Controller
         return view('page.teacher.class_overview', ['classInfo' => $classInfo]);
     }
     
+    public function changePassword ( Request $request )
+    {
+        return view('page.teacher.change_password');
+    }
 }

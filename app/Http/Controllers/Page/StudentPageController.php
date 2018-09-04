@@ -16,4 +16,9 @@ class StudentPageController extends Controller
         return view('page.student.home', ['classList' => $classList]);
     }
     
+    public function changePassword ( Request $request )
+    {
+        return view('page.student.change_password');
+    }
+    
 }

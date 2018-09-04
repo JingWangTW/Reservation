@@ -23,4 +23,9 @@ class AssistantPageController extends Controller
         return view('page.assistant.class_overview', ['classInfo' => $classInfo]);
     }
     
+    public function changePassword ( Request $request )
+    {
+        return view('page.assistant.change_password');
+    }
+    
 }

@@ -38,17 +38,17 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
     );
 });
 
-$router->get ('/change_password', [
-    'as' => 'change_password', 
-    'uses' => 'Page\UserPageController@changePassword'] 
-);
-
 // all student pages parts
 $router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], function () use ($router) {
 
     $router->get ('/', [
         'as' => 'student_home', 
         'uses' => 'Page\StudentPageController@home'] 
+    );
+    
+    $router->get ('/change_password', [
+        'as' => 'student_change_password', 
+        'uses' => 'Page\StudentPageController@changePassword'] 
     );
     
 });
@@ -59,6 +59,11 @@ $router->group(['middleware' => ['auth', 'assistant'], 'prefix' => '/assistant']
     $router->get ('/', [
         'as' => 'assistant_home', 
         'uses' => 'Page\AssistantPageController@home'] 
+    );
+    
+    $router->get ('/change_password', [
+        'as' => 'assistant_change_password', 
+        'uses' => 'Page\AssistantPageController@changePassword'] 
     );
     
     // add middle ware to check authorization
@@ -106,6 +111,11 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
         'uses' => 'Page\TeacherPageController@schedule'] 
     );
     
+    $router->get ('/change_password', [
+        'as' => 'teacher_change_password', 
+        'uses' => 'Page\TeacherPageController@changePassword'] 
+    );
+    
     $router->get ('/class_overview/{class_index}', [
         'as' => 'teacher_class_overview', 
         'uses' => 'Page\TeacherPageController@classOverview'] 
@@ -125,6 +135,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('login', 'API\AccountController@login');
     
     });
+    
+    $router->group(['middleware' => 'auth'], function ()  use ($router) {
+
+        $router->post('change_pwd', 'API\AccountController@changePwd');
+    
+    });
 
     $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
 
@@ -140,7 +156,6 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('add_reservation_class', 'API\TeacherController@addReservationClass');
         $router->post('edit_reservation_class', 'API\TeacherController@editReservationClass');
         $router->post('delete_reservation_class', 'API\TeacherController@deleteReservationClass');
-        
     
     });
 });

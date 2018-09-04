@@ -91,6 +91,7 @@ class Account extends Model
         }
     }
     
+    // use for forget password
     public static function resetPassword ( $token, $newPwd ) {
         
         $user = DB::table("forget_pwd_token")
@@ -116,6 +117,29 @@ class Account extends Model
             } else {
                 return ['error' => "Over Time!!"];
             }
+        }
+        
+        return ['error' => "Invalid Token!!"];
+    }
+    
+    public static function changePassword ( $user, $oPassword, $password ) {
+        
+        $userData = DB::table('account')
+                    -> where("account", "=", $user->id)
+                    -> first();
+                    
+        if ( password_verify ($oPassword, $userData -> password) ) {
+            
+            DB::table('account')
+                -> where ('account', '=', $userData->account)
+                -> update([
+                        'password' =>  password_hash($password, PASSWORD_BCRYPT),
+                    ]);
+                
+            return true;
+            
+        } else {
+            return ['error' => "Wrong Password!!"];
         }
         
         return ['error' => "Invalid Token!!"];

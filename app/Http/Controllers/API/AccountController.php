@@ -72,4 +72,23 @@ class AccountController extends Controller
             return redirect()->route('welcome');
         }
     }
+    
+    public function changePwd ( Request $request )
+    {
+        if ( isset($_POST["password"]) && isset($_POST["o_password"]) )
+        {
+            $status = Account::changePassword( $request->user(), $_POST["o_password"], $_POST["password"] );
+            
+            //return $status;
+            if ( !is_array($status) ) {
+                return redirect()->route('home');
+            } else {
+                return view('page.utility.wrong_message', ['message' => $status['error']]);
+            }
+        }
+        else
+        {
+            return view('page.utility.wrong_message', ['message' => 'Wrong Input!!']);
+        }
+    }
 }
