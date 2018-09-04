@@ -23,6 +23,9 @@
                 padding-top: 5rem;
                 font-family: 'Noto Sans TC';
             }
+            main {
+                min-height: 100vh;
+            }
             
             
             @yield('custom_css')
@@ -34,9 +37,17 @@
         
         @yield ('custom_nav')
 
-        <main role="main">
+        <main role="main" class="mb-5">
             @yield('content')
         </main>
+        <div class="bg-dark text-muted row justify-content-between mx-0">
+            <div class="col-md-auto col-sm-12 text-sm-center col-12 px-3 my-2">
+                Copyright © {{date('Y')}} All Rights Reserved.
+            </div>
+            <div class="col-md-auto col-sm-12 text-sm-center col-12 my-2">
+                 Develop by Jing, Wang.
+            </div>
+        </div>
     
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha384-tsQFqpEReu7ZLhBV2VZlAu7zcOV+rXbYlF2cqB8txI/8aZajjp4Bqd+V6D5IgvKT" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
