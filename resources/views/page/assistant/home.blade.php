@@ -34,6 +34,7 @@ function redirectClass ( classIndex ) {
                         <th scope="col">Start Time</th>
                         <th scope="col">End Time</th>
                         <th scope="col">Class Room</th>
+                        <th scope="col">Amount of Student</th>
                     </tr>
                 </thead>
                 <tbody id="scheduleContent">
@@ -41,9 +42,10 @@ function redirectClass ( classIndex ) {
                         <tr onclick="redirectClass('{{$class->class_index}}')">
                             <th scope="col">{{$loop->index+1}}</th>
                             <td>{{$class->class_name}}</th>
-                            <td>{{$class->start_time}}</th>
-                            <td>{{$class->end_time}}</th>
+                            <td>{{date('D, M d, H:i', strtotime($class->start_time))}}</th>
+                            <td>{{date('D, M d, H:i', strtotime($class->end_time))}}</th>
                             <td>{{$class->class_room}}</th>
+                            <td>{{$class->people_amount}}</th>
                         </tr>
                     @endforeach
                 </tbody>

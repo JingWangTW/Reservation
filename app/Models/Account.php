@@ -192,7 +192,6 @@ class Account extends Model
     
     public static function addAssistant ( $name, $email )
     {
-
         $findAccount = DB::table("account")
                     ->where("account", "=", $email)
                     ->first();

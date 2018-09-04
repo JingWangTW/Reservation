@@ -90,6 +90,45 @@ class Reservation extends Model
     
     public static function getReservationClassList ( $query )
     {
+        //// SELECT class_index, haha.cnttt, class_name from `reservation_class`, (SELECT class_index as bang, count(class_index) as cnttt from `reservation_record` group by `class_index`) as haha where reservation_class.class_index = bang
+        $record = DB::table( 'reservation_record' )
+           -> select( 'reservation_record.class_index', DB::raw('count(reservation_record.class_index) as people_amount') )
+           -> groupBy ('reservation_record.class_index')
+           -> get()
+           -> toArray();
+        
+        $classList = DB::table('reservation_class')
+            -> join('account', function( $join ) use ($query)  // join the account table, to get the name of assistant
+                {
+                    // condition to join table
+                    $join->on('reservation_class.assistant', '=', 'account.account')
+                        -> where ( $query );
+                })
+            // only selest the column that need
+            -> select ( 'reservation_class.class_index', 
+                        'reservation_class.class_name', 
+                        'reservation_class.class_room', 
+                        'reservation_class.start_time', 
+                        'reservation_class.end_time', 
+                        'account.name as assistant_name')
+            -> orderBy ('reservation_class.start_time', 'asc')
+            -> get();
+        
+        // manually join
+        foreach( $classList as $key => $class ) {
+            
+            $find = array_search($class->class_index, array_column($record, 'class_index'));
+            
+            if ( $find !== false )
+            {
+                $classList[$key]->people_amount = $record[$find]->people_amount;
+            }
+            else 
+            {
+                $classList[$key]->people_amount = 0;
+            }
+        }
+        /*
         // query builder
         $classList = DB::table('reservation_class')
             ->join('account', function( $join ) use ($query)   // join the account table, to get the name of assistant
@@ -107,6 +146,7 @@ class Reservation extends Model
                         'account.name as assistant_name')
             -> orderBy ('reservation_class.start_time', 'asc')
             -> get();
+            */
             
         return $classList;
     }

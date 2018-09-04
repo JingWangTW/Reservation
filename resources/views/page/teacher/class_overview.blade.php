@@ -47,8 +47,8 @@
                         <div class="py-2 px-1 border rounded">
                             <ul class="" id="infoBox">
                                 <li>Class Name: {{$classInfo['class_name']}}</li>
-                                <li>Start Time: {{$classInfo['start_time']}}</li>
-                                <li>End Time: {{$classInfo['end_time']}}</li>
+                                <li>Start Time: {{date('m/d, H:i', strtotime($classInfo['start_time']))}}</li>
+                                <li>End Time: {{date('m/d, H:i', strtotime($classInfo['end_time']))}}</li>
                                 <li>Class Room: {{$classInfo['class_room']}}</li>
                             </ul>
                         </div>

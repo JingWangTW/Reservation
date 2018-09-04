@@ -48,7 +48,7 @@ function deleteClass ( classIndex ) {
 
 @section('content')
     <div class="row justify-content-center mx-0">
-        <div class="col-lg-10 col-md-12 col-sm-12 col-12">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="schedule">
                 <h1> Reservation Class List </h1>
                 
@@ -61,6 +61,7 @@ function deleteClass ( classIndex ) {
                             <th scope="col">End Time</th>
                             <th scope="col">Class Room</th>
                             <th scope="col">Assistant</th>
+                            <th scope="col">Amount of Student</th>
                             <th scope="col">Other</th>
                         </tr>
                     </thead>
@@ -69,10 +70,11 @@ function deleteClass ( classIndex ) {
                             <tr>
                                 <th scope="col">{{$loop->index+1}}</th>
                                 <td>{{$class->class_name}}</th>
-                                <td>{{$class->start_time}}</th>
-                                <td>{{$class->end_time}}</th>
+                                <td>{{date('D, M d, H:i', strtotime($class->start_time))}}</th>
+                                <td>{{date('D, M d, H:i', strtotime($class->end_time))}}</th>
                                 <td>{{$class->class_room}}</th>
                                 <td>{{$class->assistant_name}}</th>
+                                <td>{{$class->people_amount}}</th>
                                 <td>
                                     <button class="btn btn-outline-success mx-1" onclick="editClass('{{$class->class_index}}')"> Edit </button>
                                     <a class="btn btn-outline-primary mx-1" href="/teacher/class_overview/{{$class->class_index}}"> View </a>

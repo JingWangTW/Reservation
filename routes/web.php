@@ -10,7 +10,7 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-use App\Models\Reservation as Reservation;
+
 // all users page part
 $router->group(['middleware' => 'warn'], function () use ($router) {
     
@@ -174,11 +174,9 @@ $router->get ('/verifyMail/{token}', [
     'uses' => 'Page\UserPageController@verifyMail'] 
 );
 
-
 $router->get('hash_password', function(){
     return password_hash("admin", PASSWORD_BCRYPT);
 });
-
 
 /*
 $router->get('/', function () use ($router) {

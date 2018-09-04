@@ -21,9 +21,9 @@
 
 @section('custom_js')
 
+const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' };
+
 function drawSchedule() {
-    
-    const dateOptions = { weekday: 'short', year: 'numeric', month: 'short', day: '2-digit' };
     
     // convert php array to JS object
     let classList = @json($classList);
@@ -98,12 +98,24 @@ function clickClass ( node, classData ) {
     
     // append start time of the class
     item = document.createElement('li');
-    item.innerHTML = `Start Time: ${classData.start_time}`;
+    item.innerHTML = `Start Time: ${new Date(classData.start_time)
+                                    .toLocaleDateString('en-us', {
+                                        ...dateOptions, 
+                                        'hour': '2-digit', 
+                                        'minute': 'numeric',
+                                        'weekday': undefined,
+                                    })}`;
     listNode.appendChild(item);
     
     // append end time of the class
     item = document.createElement('li');
-    item.innerHTML = `End Time: ${classData.end_time}`;
+    item.innerHTML = `End Time: ${new Date(classData.end_time)
+                                    .toLocaleDateString('en-us', {
+                                        ...dateOptions, 
+                                        'hour': '2-digit', 
+                                        'minute': 'numeric',
+                                        'weekday': undefined,
+                                    })}`;
     listNode.appendChild(item);
     
     // apend assistant name of the class
