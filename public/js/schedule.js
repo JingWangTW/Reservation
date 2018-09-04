@@ -309,7 +309,6 @@
                     var bdata = row["schedule"][i];
                     var s = element.calcStringTime(bdata["start"]);
                     var e = element.calcStringTime(bdata["end"]);
-
                     var data = {};
                     data["timeline"] = id;
                     data["start"] = s;
@@ -320,6 +319,9 @@
                     data["data"] = {};
                     if(bdata["data"]){
                         data["data"] = bdata["data"];
+                    }
+                    if(bdata["class"]){
+                        data["class"] = bdata["class"];
                     }
                     element.addScheduleData(data);
                 }

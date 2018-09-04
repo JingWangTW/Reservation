@@ -11,7 +11,9 @@ class AssistantPageController extends Controller
 {
     public function home ( Request $request )
     {
-        $classList = Reservation::getClassListByAssistant( \Auth::user() -> id );
+        $classList = Reservation::getReservationClassList([
+            ['assistant', '=', \Auth::user() -> id]
+        ]);
         
         return view('page.assistant.home', ['classList' => $classList]);
     }

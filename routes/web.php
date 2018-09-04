@@ -25,13 +25,6 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
         'uses' => 'Page\UserPageController@home'] 
     );
     
-    $router->get('test_home', function(){
-        
-        $classList =  Reservation::get2WeeksReservationClass();
-        
-        return view('page.user.test_home', ['classList' => $classList]);
-    });
-    
     $router->get ('/forget', [
         'as' => 'forget_password', 
         'uses' => 'Page\UserPageController@forgetPassword'] 
@@ -145,6 +138,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
 
         $router->post('making_reservation', 'API\StudentController@makingReservation');
+        $router->post('edit_reservation_record', 'API\StudentController@editReservation');
+        $router->post('delete_reservation_record', 'API\StudentController@deleteReservation');
+        
     
     });
     

@@ -17,10 +17,13 @@
     {
         font-family: consolas;
     }
-    #questionInput 
+    #questionInput, #editQuestionInput
     {
         width: 100%;
         resize: none;
+    }
+    .reserved {
+        background-color: green !important;
     }
 @endsection
 
@@ -34,6 +37,7 @@ function drawSchedule() {
     
     // convert php array to JS object
     let classList = @json($classList);
+    let recordList = @json($recordList);
     
     // get all rows data;
     let classCounter = 0;
@@ -56,6 +60,14 @@ function drawSchedule() {
             newEvent.end = new Date(classList[classCounter].end_time).toLocaleTimeString('en-us', {'hour': '2-digit', 'minute': '2-digit', 'hour12': false});
             newEvent.text = classList[classCounter].class_name;
             newEvent.data = classList[classCounter];
+            
+            // check if reserved 
+            const findRecord = recordList.find((e) =>  e.class_index === classList[classCounter].class_index )
+            if ( findRecord ) {
+                newEvent.class = "reserved";
+                newEvent.data.question = findRecord.question;
+                newEvent.data.reserved = true;
+            }
             
             newRow.schedule.push(newEvent);
             
@@ -129,14 +141,57 @@ function clickClass ( node, classData ) {
     // fill in class name
     $('#submitClassName').val(classData.class_name);
     
+    // prepsare reservation form, edit or new.
+    if ( classData.reserved ) {
+
+        $('#makeReserveButton').hide();
+        $('#editReserveButton').show();
+        
+        $('#editClassIndex').val(classData.class_index);
+        $('#deleteClassIndex').val(classData.class_index);
+        $('#editClassName').val(classData.class_name);
+        $('#editQuestionInput').val(classData.question);
+        
+    } else {
+        
+        $('#makeReserveButton').show();
+        $('#editReserveButton').hide();
+    }
+    
+    // check if in the editable range
+    const duration = new Date(classData.start_time) - Date.now();
+    if ( duration < 1000*60*2 ) {
+        $("#makeReserveButton").prop('disabled', true);  
+        $("#addRecordSubmitButton").prop('disabled', true);  
+        $("#editButton").prop('disabled', true);  
+        $("#deleteButton").prop('disabled', true);  
+        $("#questionInput").prop('disabled', true);  
+        $("#editQuestionInput").prop('disabled', true);  
+    } else {
+        $("#makeReserveButton").prop('disabled', false);  
+        $("#addRecordSubmitButton").prop('disabled', false);  
+        $("#editButton").prop('disabled', false);  
+        $("#deleteButton").prop('disabled', false);  
+        $("#questionInput").prop('disabled', false);  
+        $("#editQuestionInput").prop('disabled', false);  
+    }
+    
     // show the class info
     $('#classCard').modal('show');
 }
 
-function showReserveForm () {
+function showBlankReserveForm () {
     
     $('#classCard').modal('hide');
     $('#reserveForm').modal('show');
+    $('#editReserveForm').modal('hide');
+}
+
+function showEmptyReserveForm () {
+    
+    $('#classCard').modal('hide');
+    $('#reserveForm').modal('hide');
+    $('#editReserveForm').modal('show');
     
 }
 
@@ -168,7 +223,8 @@ addEventListener('load', drawSchedule, false);
                  </div>
                  <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal"> Close </button>
-                    <button type="button" class="btn btn-success" onclick="showReserveForm()"> I want Reserve! </button>
+                    <button type="button" id="makeReserveButton" class="btn btn-success" onclick="showBlankReserveForm()"> I want Reserve! </button>
+                    <button type="button" id="editReserveButton" class="btn btn-success" onclick="showEmptyReserveForm()"> Edit Record! </button>
                  </div>
               </div>
            </div>
@@ -201,7 +257,45 @@ addEventListener('load', drawSchedule, false);
                      </div>
                      <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
-                        <button type="submit" class="btn btn-success"> Check! </button>
+                        <button type="submit" class="btn btn-success" id="addRecordSubmitButton"> Check! </button>
+                     </div>
+                 </form>
+              </div>
+           </div>
+        </div>
+        <div class="modal" id="editReserveForm" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                 <div class="modal-header">
+                    <h5 class="modal-title"> Edit the reserve record. </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                 </div>
+                 <form style="display: none" action="/api/delete_reservation_record" method="POST" id="deleteRecordForm">
+                    <input style="display: none" type="text" name="classIndex" id="deleteClassIndex" readonly>
+                 </form>
+                 
+                 <form action="/api/edit_reservation_record" method="POST" id="editRecordForm">
+                     <div class="modal-body" id="question">
+                        <input style="display: none" type="text" name="classIndex" id="editClassIndex" readonly>
+                        <div class="form-group row">
+                            <label for="className" class="col-sm-3 col-form-label">Class Name</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control form-control-plaintext" id="editClassName" name="className" readonly>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <textarea name="question" rows="5" id="editQuestionInput" class="px-2"
+                            placeholder="Please leave the question you want to ask on the class, or just leave it blank and click 'Check!' button to finish reservation."></textarea>
+                        </div>
+                        
+                     </div>
+                     <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"> Cancel </button>
+                        <button type="submit" class="btn btn-danger" form="deleteRecordForm" id="deleteButton"> Delete! </button>
+                        <button type="submit" class="btn btn-success" form="editRecordForm" id="editButton"> Submit! </button>
                      </div>
                  </form>
               </div>

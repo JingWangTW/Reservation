@@ -16,7 +16,6 @@ function checkForm() {
     
 @endsection
 
-
 @section('content')
     <div class="schedule container">
         <h1> Change Password</h1>

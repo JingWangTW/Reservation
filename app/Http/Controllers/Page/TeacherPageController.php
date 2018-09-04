@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Page;
 
+use App\Http\Controllers\Controller as Controller;
+use Illuminate\Http\Request;
+
 use App\Models\ClassManager as ClassManager;
 use App\Models\Account as Account;
 use App\Models\Reservation as Reservation;
 
-use App\Http\Controllers\Controller as Controller;
-use Illuminate\Http\Request;
 
 class TeacherPageController extends Controller
 {
@@ -42,7 +43,10 @@ class TeacherPageController extends Controller
     
     public function schedule ( Request $request )
     {
-        $classList = Reservation::getFutureAllClass();
+        // set the date limit to query
+        $classList = Reservation::getReservationClassList([
+            ['start_time', '>=', date('Y-m-d')]
+        ]);
         $assistantList = Account::getAssistantList();
         
         return view('page.teacher.schedule', ['assistantList' => $assistantList, 'classList' => $classList]);

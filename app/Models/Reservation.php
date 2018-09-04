@@ -88,22 +88,15 @@ class Reservation extends Model
         }
     }
     
-    public static function get2WeeksReservationClass () 
+    public static function getReservationClassList ( $query )
     {
         // query builder
         $classList = DB::table('reservation_class')
-            ->join('account', function( $join )         // join the account table, to get the name of assistant
+            ->join('account', function( $join ) use ($query)   // join the account table, to get the name of assistant
                 {
-                    // set the date limit to query
-                    $currentDate = date('Y-m-d');
-                    $lastDate = new DateTime();
-                    $lastDate = $lastDate -> add(new DateInterval('P2W'))
-                                            -> format('Y-m-d');
-                    
                     // condition to join table
                     $join->on('reservation_class.assistant', '=', 'account.account')
-                        -> where ( 'reservation_class.start_time', ">=", $currentDate )
-                        -> where ( 'reservation_class.end_time', "<", $lastDate );
+                        -> where ( $query );
                 })
             // only selest the column that need
             -> select ( 'reservation_class.class_index', 
@@ -114,34 +107,27 @@ class Reservation extends Model
                         'account.name as assistant_name')
             -> orderBy ('reservation_class.start_time', 'asc')
             -> get();
-        
+            
         return $classList;
     }
     
-    public static function getFutureAllClass ()
+    public static function getReservationRecord ( $userId )
     {
         // query builder
-        $classList = DB::table('reservation_class')
-            ->join('account', function( $join )         // join the account table, to get the name of assistant
+        $classList = DB::table('reservation_record')
+            ->join('reservation_class', function( $join ) use ($userId)   // join the account table, to get the name of assistant
                 {
-                    // set the date limit to query
-                    $currentDate = date('Y-m-d');
-                    
                     // condition to join table
-                    $join -> on('reservation_class.assistant', '=', 'account.account')
-                          -> where ( 'reservation_class.start_time', ">=", $currentDate );
+                    $join->on('reservation_class.class_index', '=', 'reservation_record.class_index')
+                        -> where ( 'student_account', '=', $userId )
+                        -> where ( 'reservation_class.start_time', '>=', date('Y-m-d') );
                 })
             // only selest the column that need
-            -> select ( 'reservation_class.class_index', 
-                        'reservation_class.class_name', 
-                        'reservation_class.class_room', 
-                        'reservation_class.start_time', 
-                        'reservation_class.end_time', 
-                        'account.name as assistant_name'
-                )
+            -> select ( 'reservation_class.class_index',
+                        'question' )
             -> orderBy ('reservation_class.start_time', 'asc')
             -> get();
-        
+            
         return $classList;
     }
     
@@ -161,15 +147,57 @@ class Reservation extends Model
         }
     }
     
-    public static function getClassListByAssistant ( $assistant )
+    public static function editRecord ( $classIndex, $question, $userId )
     {
-        // query builder
-        $classList = DB::table('reservation_class')
-            -> where ( 'assistant',  '=', $assistant )
-            -> orderBy ('start_time', 'asc')
-            -> get();
-        
-        return $classList;
+        // insert reservation record to db
+        try
+        {
+            $classData = (array)DB::table('reservation_class')
+                -> where ('class_index', '=', $classIndex)
+                -> first();
+            
+            $startTime = new DateTime($classData['start_time']);
+            $current = new DateTime();
+            
+            // check if in the editable duration
+            if ($startTime->getTimeStamp() - $current->getTimeStamp() > 2*60 ) {
+                return DB::table('reservation_record')
+                    -> where ('class_index', '=', $classIndex)
+                    -> where ('student_account', '=', $userId)
+                    -> update([
+                            'question' => $question
+                        ]);
+            } else {
+                return ['error' => 'Not in editable duration'];
+            }
+            
+            
+        } catch ( Exception $exception ) {
+            return ['error' => 'Wrong Input'];
+        }
+    }
+    
+    public static function deleteRecord ( $classIndex, $userId )
+    {
+        // insert reservation record to db
+        try
+        {
+            $startTime = new DateTime($classData['start_time']);
+            $current = new DateTime();
+            
+            // check if in the editable duration
+            if ($startTime->getTimeStamp() - $current->getTimeStamp() > 2*60 ) {
+                return DB::table('reservation_record')
+                    -> where ('class_index', '=', $classIndex)
+                    -> where ('student_account', '=', $userId)
+                    -> delete();
+            } else {
+                return ['error' => 'Not in editable duration'];
+            }
+            
+        } catch ( Exception $exception ) {
+            return ['error' => 'Wrong Input'];
+        }
     }
     
     // get only info in reservation_class table
