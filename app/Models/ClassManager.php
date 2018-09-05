@@ -17,7 +17,7 @@ class ClassManager extends Model
                 'semester' => $semester,
                 'class_index' => $index
             ]);
-        } catch ( Exception $exception ) {
+        } catch ( \Exception $exception ) {
             return false;
         }
     }
@@ -36,8 +36,8 @@ class ClassManager extends Model
             
             return true;
             
-        } catch ( Exception $exception ) {
-            return false;
+        } catch ( \Exception $exception ) {
+            return ['error' => 'Wrong Input!!!'];
         }
     }
     

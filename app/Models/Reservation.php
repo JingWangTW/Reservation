@@ -45,7 +45,7 @@ class Reservation extends Model
                     'class_index' => $index
                 ]);                     
             } 
-            catch( Exception $exception )
+            catch( \Exception $exception )
             {
                 return false;
             }
@@ -68,7 +68,7 @@ class Reservation extends Model
                         'assistant' => $assistant
                     ]);                
         } 
-        catch( Exception $exception )
+        catch( \Exception $exception )
         {
             return false;
         }
@@ -82,7 +82,7 @@ class Reservation extends Model
                 -> where ('class_index', '=', $classIndex)
                 -> delete()  ;
         } 
-        catch( Exception $exception )
+        catch( \Exception $exception )
         {
             return false;
         }
@@ -159,7 +159,7 @@ class Reservation extends Model
                 'student_account' => $userAccount
             ]);
             
-        } catch ( Exception $exception ) {
+        } catch ( \Exception $exception ) {
             return false;
         }
     }
@@ -189,7 +189,7 @@ class Reservation extends Model
             }
             
             
-        } catch ( Exception $exception ) {
+        } catch ( \Exception $exception ) {
             return ['error' => 'Wrong Input'];
         }
     }
@@ -216,7 +216,7 @@ class Reservation extends Model
                 return ['error' => 'Not in editable duration'];
             }
             
-        } catch ( Exception $exception ) {
+        } catch ( \Exception $exception ) {
             return ['error' => 'Wrong Input'];
         }
     }

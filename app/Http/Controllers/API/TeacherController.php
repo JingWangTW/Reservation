@@ -99,8 +99,8 @@ class TeacherController extends Controller
             
                 $addToClass = ClassManager::addStudent($_POST['className'], $studentList);
                 
-                if ( !$addToClass )
-                    return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+                if ( is_array($addToClass) )
+                    return view('page.utility.wrong_message', ['message' => json_encode($addToClass)]);
                 else
                     return redirect()->route('teacher_home');
             }
