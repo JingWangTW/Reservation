@@ -107,14 +107,6 @@ class Reservation extends Model
             // only selest the column that need
             -> select ( 'reservation_class.*', 
                         'account.name as assistant_name')
-            /*
-            -> select ( 'reservation_class.class_index', 
-                        'reservation_class.class_name', 
-                        'reservation_class.class_room', 
-                        'reservation_class.start_time', 
-                        'reservation_class.end_time', 
-                        'account.name as assistant_name')
-                        */
             -> orderBy ('reservation_class.start_time', 'asc')
             -> get();
         
@@ -132,25 +124,6 @@ class Reservation extends Model
                 $classList[$key]->people_amount = 0;
             }
         }
-        /*
-        // query builder
-        $classList = DB::table('reservation_class')
-            ->join('account', function( $join ) use ($query)   // join the account table, to get the name of assistant
-                {
-                    // condition to join table
-                    $join->on('reservation_class.assistant', '=', 'account.account')
-                        -> where ( $query );
-                })
-            // only selest the column that need
-            -> select ( 'reservation_class.class_index', 
-                        'reservation_class.class_name', 
-                        'reservation_class.class_room', 
-                        'reservation_class.start_time', 
-                        'reservation_class.end_time', 
-                        'account.name as assistant_name')
-            -> orderBy ('reservation_class.start_time', 'asc')
-            -> get();
-            */
             
         return $classList;
     }

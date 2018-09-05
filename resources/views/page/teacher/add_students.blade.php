@@ -58,7 +58,8 @@ function changeFileName( file ) {
 function handleAmountClick() {
     
     // get the amount of student
-    let studentTotal = document.getElementById('student_total').value;
+    const inputTotal = document.getElementById('student_total').value;
+    let studentTotal = inputTotal >= 100 ? 100 : inputTotal;
     
     // clear origin form
     let formDiv = document.getElementById('key_in_student');    
@@ -224,7 +225,7 @@ function handleAmountClick() {
                             <div>
                                 <div id="key_in_student">
                                     <label for="student_total">How many students to add to this class? </label>
-                                    <input type="number" min="1" class="form-control" id="student_total" value="1" name="student_total" required>
+                                    <input type="number" min="1" max="100" class="form-control" id="student_total" value="1" name="student_total" required>
                                 </div>
                                 <input type="button" class="mt-2 btn btn-success" id="btn_submit_total" onclick="handleAmountClick()" value="Check"> 
                             </div>
