@@ -25,6 +25,7 @@
     .reserved {
         background-color: green !important;
     }
+    
     span.icon {
         height: 0px;
         width: 0px;

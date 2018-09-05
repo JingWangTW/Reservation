@@ -464,6 +464,7 @@
         // init
         this.init = function(){
             var html = '';
+            html += '<div style="position: relative">'+"\n";
             html += '<div class="sc_menu">'+"\n";
             html += '<div class="sc_header_cell"><span>&nbsp;</span></div>'+"\n";
             html += '<div class="sc_header">'+"\n";
@@ -484,6 +485,9 @@
             html += '</div>'+"\n";
             html += '</div>'+"\n";
             html += '<br class="clear" />'+"\n";
+            html += '</div>'+"\n";
+            html += '<div class="sc-copyright"> Powered by <a href="https://www.jqueryscript.net/time-clock/Simple-Daily-Schedule-Plugin-with-jQuery-and-jQuery-UI-Schedule.html" target="_blank">jQuery schedule plugin</a>'+"\n";
+            html += '</div>'+"\n";
             html += '</div>'+"\n";
 
             $element.append(html);
