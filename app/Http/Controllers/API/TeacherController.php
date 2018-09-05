@@ -94,8 +94,8 @@ class TeacherController extends Controller
             {
                 $addStudentStatus = Account::addStudents($studentList);
                 
-                if ( !$addStudentStatus )
-                    view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+                if ( is_array($addStudentStatus) )
+                    view('page.utility.wrong_message', ['message' => json_encode($addStudentStatus)]);
             
                 $addToClass = ClassManager::addStudent($_POST['className'], $studentList);
                 
@@ -118,9 +118,10 @@ class TeacherController extends Controller
     
     public function addAssistant ( Request $request )
     {
-        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) )
+        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) && 
+            strlen (trim($_POST['name'])) && strlen (trim($_POST['email'])) )
         {
-            $status = Account::addAssistant($_POST['name'], $_POST['email']);
+            $status = Account::addAssistant( trim($_POST['name']), trim($_POST['email']));
             
             if ( is_array($status) ) {
                 
@@ -138,9 +139,10 @@ class TeacherController extends Controller
     
     public function addTeacher ( Request $request )
     {
-        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) && isset( $_POST['account'] ) )
+        if ( isset( $_POST['name'] ) && isset( $_POST['email'] ) && isset( $_POST['account'] ) && 
+            strlen (trim($_POST['name'])) && strlen (trim($_POST['email'])) && strlen (trim($_POST['account']))  )
         {
-            $status = Account::addTeacher($_POST['name'], $_POST['email'], $_POST['account']);
+            $status = Account::addTeacher(trim($_POST['name']), trim($_POST['email']), trim($_POST['account']));
             
             if ( is_array($status) ) {
                 

@@ -173,26 +173,34 @@ class Account extends Model
     
     public static function addStudents ( $studentList )
     {
-        foreach( $studentList as $student )
+        try
         {
-            // check if find the exist student
-            $findAccount = DB::table("account")
-                        ->where("account", "=", $student["studentID"])
-                        ->first();
-            
-            // only insert the student that didn't exist in the database
-            if ( is_null($findAccount) )
+            foreach( $studentList as $student )
             {
-                DB::table("account")->insert([
-                        "account" => $student["studentID"],
-                        "password" => password_hash($student["studentID"], PASSWORD_BCRYPT),
-                        "name" => $student["studentName"],
-                        "authority" => 1,
-                        "email" => $student['studentID']."@mail.ntou.edu.tw" ,
-                        "department" => $student['department'],
-                        "grade" => $student['grade']
-                    ]);
+                // check if find the exist student
+                $findAccount = DB::table("account")
+                            ->where("account", "=", $student["studentID"])
+                            ->first();
+                
+                // only insert the student that didn't exist in the database
+                if ( is_null($findAccount) )
+                {
+                    DB::table("account")->insert([
+                            "account" => strlen(trim($student["studentID"])) == 0 ? null : $student["studentID"],
+                            "password" => password_hash($student["studentID"], PASSWORD_BCRYPT),
+                            "name" => $student["studentName"],
+                            "authority" => 1,
+                            "email" => $student['studentID']."@mail.ntou.edu.tw" ,
+                            "department" => $student['department'],
+                            "grade" => $student['grade']
+                        ]);
+                }
             }
+            return true;
+        }
+        catch ( \Exception $exception )
+        {
+            return ['error' => 'Wrong Input!!!'];
         }
     }
     
