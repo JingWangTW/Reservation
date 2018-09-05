@@ -72,6 +72,10 @@ $app->bind(\Illuminate\Session\SessionManager::class, function () use ($app) {
 //    App\Http\Middleware\ExampleMiddleware::class
 // ]);
 
+$app->middleware([
+    App\Http\Middleware\XSSProtection::class
+ ]);
+
 // page authorization
 $app->routeMiddleware([
     'auth' => App\Http\Middleware\Authenticate::class,

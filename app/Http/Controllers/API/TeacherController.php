@@ -70,16 +70,23 @@ class TeacherController extends Controller
             // otherwise add by table
             else if ( isset ($_POST["studentName"]) )
             { 
-                $studentList = [];
-                
-                for ($index = 0; $index < count($_POST["studentName"]) ; $index++) 
+                try 
                 {
-                    array_push($studentList, [
-                        "studentName" => $_POST["studentName"][$index],
-                        "studentID" => $_POST["studentID"][$index],
-                        "department" => $_POST["department"][$index],
-                        "grade" => $_POST["grade"][$index]
-                    ]);
+                    $studentList = [];
+                
+                    for ($index = 0; $index < count($_POST["studentName"]) ; $index++) 
+                    {
+                        array_push($studentList, [
+                            "studentName" => $_POST["studentName"][$index],
+                            "studentID" => $_POST["studentID"][$index],
+                            "department" => $_POST["department"][$index],
+                            "grade" => $_POST["grade"][$index]
+                        ]);
+                    }
+                }
+                catch( Exception $e)
+                {
+                    return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
                 }
             }
             

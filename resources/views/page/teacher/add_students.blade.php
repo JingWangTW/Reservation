@@ -59,7 +59,7 @@ function handleAmountClick() {
     
     // get the amount of student
     const inputTotal = document.getElementById('student_total').value;
-    let studentTotal = inputTotal >= 100 ? 100 : inputTotal;
+    const studentTotal = inputTotal >= 100 ? 100 : inputTotal;
     
     // clear origin form
     let formDiv = document.getElementById('key_in_student');    

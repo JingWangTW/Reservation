@@ -171,7 +171,6 @@ class Account extends Model
             // check if find the exist student
             $findAccount = DB::table("account")
                         ->where("account", "=", $student["studentID"])
-                        ->where("authority", "=", 1)
                         ->first();
             
             // only insert the student that didn't exist in the database
