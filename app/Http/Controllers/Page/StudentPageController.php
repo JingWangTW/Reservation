@@ -8,6 +8,7 @@ use \DateTime;
 use \DateInterval;
 
 use App\Models\Reservation as Reservation;
+use App\Models\Account as Account;
 
 class StudentPageController extends Controller
 {
@@ -33,6 +34,13 @@ class StudentPageController extends Controller
     public function changePassword ( Request $request )
     {
         return view('page.student.change_password');
+    }
+    
+    public function assistantOverview ( Request $request )
+    {
+        $assistant = Account::getAssistant( route_parameter('assistant_index') );
+        
+        return view('page.student.assistant_overview', ['assistant' => $assistant]);
     }
     
 }

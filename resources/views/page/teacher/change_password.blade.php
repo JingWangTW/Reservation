@@ -19,7 +19,7 @@ function checkForm() {
 
 @section('content')
     <div class="schedule container">
-        <h1> Change Password</h1>
+        <h1 class="text-muted"> Change Password</h1>
         
         <form action="/api/change_pwd" method="POST" onsubmit="return checkForm();">
             <span class="text-danger" id="hint"></span>

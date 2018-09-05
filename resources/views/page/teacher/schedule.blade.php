@@ -50,7 +50,7 @@ function deleteClass ( classIndex ) {
     <div class="row justify-content-center mx-0">
         <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="schedule">
-                <h1> Reservation Class List </h1>
+                <h1 class="text-muted"> Reservation Class List </h1>
                 
                 <table class="table table-striped align-middle">
                     <thead>
@@ -73,7 +73,7 @@ function deleteClass ( classIndex ) {
                                 <td>{{date('D, M d, H:i', strtotime($class->start_time))}}</th>
                                 <td>{{date('D, M d, H:i', strtotime($class->end_time))}}</th>
                                 <td>{{$class->class_room}}</th>
-                                <td>{{$class->assistant_name}}</th>
+                                <td><a href="/teacher/assistant_overview/{{urlencode($class->assistant)}}">{{$class->assistant_name}}</a></th>
                                 <td>{{$class->people_amount}}</th>
                                 <td>
                                     <button class="btn btn-outline-success mx-1" onclick="editClass('{{$class->class_index}}')"> Edit </button>

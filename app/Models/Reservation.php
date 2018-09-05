@@ -90,7 +90,7 @@ class Reservation extends Model
     
     public static function getReservationClassList ( $query )
     {
-        //// SELECT class_index, haha.cnttt, class_name from `reservation_class`, (SELECT class_index as bang, count(class_index) as cnttt from `reservation_record` group by `class_index`) as haha where reservation_class.class_index = bang
+        // SELECT class_index, haha.cnttt, class_name from `reservation_class`, (SELECT class_index as bang, count(class_index) as cnttt from `reservation_record` group by `class_index`) as haha where reservation_class.class_index = bang
         $record = DB::table( 'reservation_record' )
            -> select( 'reservation_record.class_index', DB::raw('count(reservation_record.class_index) as people_amount') )
            -> groupBy ('reservation_record.class_index')
@@ -105,12 +105,16 @@ class Reservation extends Model
                         -> where ( $query );
                 })
             // only selest the column that need
+            -> select ( 'reservation_class.*', 
+                        'account.name as assistant_name')
+            /*
             -> select ( 'reservation_class.class_index', 
                         'reservation_class.class_name', 
                         'reservation_class.class_room', 
                         'reservation_class.start_time', 
                         'reservation_class.end_time', 
                         'account.name as assistant_name')
+                        */
             -> orderBy ('reservation_class.start_time', 'asc')
             -> get();
         

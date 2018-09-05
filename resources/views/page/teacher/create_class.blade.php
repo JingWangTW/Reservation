@@ -5,7 +5,7 @@
 @section('content')
     <div class="container">
         <div class="row justify-content-center">
-            <form class="col-lg-8 col-md-10 col-sm-12 col-12" action="/api/create_class" method="POST">
+            <form class="col-md-10 col-sm-12 col-12" action="/api/create_class" method="POST">
                 <h1 class="text-muted">Create Class</h1>
                 <div class="form-group">
                     <label for="className">Class Name</label>

@@ -157,7 +157,7 @@ function clickClass ( node, classData ) {
     
     // apend assistant name of the class
     item = document.createElement('li');
-    item.innerHTML = `Assistant: ${classData.assistant_name}`;
+    item.innerHTML = `Assistant: <a href=/student/assistant_overview/${encodeURIComponent(classData.assistant)}>${classData.assistant_name}</a>`;
     listNode.appendChild(item);
     
     // fill in the content

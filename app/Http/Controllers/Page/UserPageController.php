@@ -34,6 +34,13 @@ class UserPageController extends Controller
         return view('page.user.home', ['classList' => $classList]);
     }
     
+    public function assistantOverview ( Request $request )
+    {
+        $assistant = Account::getAssistant( route_parameter('assistant_index') );
+        
+        return view('page.user.assistant_overview', ['assistant' => $assistant]);
+    }
+    
     public function forgetPassword( Request $request )
     {
         return view('page.user.forget');

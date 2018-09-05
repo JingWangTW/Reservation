@@ -6,7 +6,7 @@
     <div class="row justify-content-center mx-0">
         <div  class="col-lg-10 col-md-12 col-sm-12 col-12 mx-2">
             <div class="class-info">
-                <h1 class="ml-1"> Class Info </h1>
+                <h1 class="ml-1 text-muted"> Class Info </h1>
                 <div class="row mt-2">
                     <div class="col-lg-9 col-md-12 order-lg-1 order-2 mt-2 mt-lg-0">
                         <table class="table table-striped table-bordered table-hover table-response">

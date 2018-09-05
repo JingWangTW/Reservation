@@ -199,7 +199,7 @@ class Account extends Model
         // check is find the smae account
         if ( is_null($findAccount) )
         {
-            return DB::table("account")
+            DB::table("account")
                 ->insert([
                     "account" => $email,
                     "password" => password_hash($email, PASSWORD_BCRYPT),
@@ -207,6 +207,13 @@ class Account extends Model
                     "authority" => 2,
                     "email" => $email 
                 ]);
+                
+            DB::table("assistant_profile")
+                ->insert([
+                    "account" => $email,
+                ]);
+                
+            return true;
         } else {
             return ['error' => "Assistant has been registered."];
         }
@@ -252,6 +259,26 @@ class Account extends Model
         }
         
         return $assistantList;
+    }
+    
+    public static function getAssistant ( $id )
+    {
+        $findAssistant = DB::table("assistant_profile")
+            -> join('account', function ($join) use ($id){
+                    
+                    $join->on('account.account', '=', 'assistant_profile.assistant_index')
+                        -> where("authority", "=", 2)
+                        -> where("account.account", "=", $id);
+                })
+            -> select(
+                    'account.name as name',
+                    'account.department as department',
+                    'account.grade as grade',
+                    'assistant_profile.*'
+                )
+            -> first();
+        
+        return $findAssistant;
     }
     
     

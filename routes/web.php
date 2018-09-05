@@ -29,6 +29,11 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
         'as' => 'forget_password', 
         'uses' => 'Page\UserPageController@forgetPassword'] 
     );
+    
+    $router->get ('/assistant_overview/{assistant_index}', [
+        'as' => 'student_assistant_overview', 
+        'uses' => 'Page\UserPageController@assistantOverview'] 
+    );
 });
 
 // all student pages parts
@@ -44,6 +49,11 @@ $router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], fu
         'uses' => 'Page\StudentPageController@changePassword'] 
     );
     
+    $router->get ('/assistant_overview/{assistant_index}', [
+        'as' => 'student_assistant_overview', 
+        'uses' => 'Page\StudentPageController@assistantOverview'] 
+    );
+    
 });
 
 // all assistant pages parts
@@ -57,6 +67,11 @@ $router->group(['middleware' => ['auth', 'assistant'], 'prefix' => '/assistant']
     $router->get ('/change_password', [
         'as' => 'assistant_change_password', 
         'uses' => 'Page\AssistantPageController@changePassword'] 
+    );
+    
+    $router->get ('/edit_profile', [
+        'as' => 'assistant_edit_profile', 
+        'uses' => 'Page\AssistantPageController@editProfile'] 
     );
     
     // add middle ware to check authorization
@@ -117,6 +132,11 @@ $router->group(['middleware' => ['auth', 'teacher'], 'prefix' => '/teacher'], fu
     $router->get ('/class_overview/{class_index}', [
         'as' => 'teacher_class_overview', 
         'uses' => 'Page\TeacherPageController@classOverview'] 
+    );
+    
+    $router->get ('/assistant_overview/{assistant_index}', [
+        'as' => 'teacher_assistant_overview', 
+        'uses' => 'Page\TeacherPageController@assistantOverview'] 
     );
 });
 

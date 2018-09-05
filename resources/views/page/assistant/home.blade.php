@@ -24,7 +24,7 @@ function redirectClass ( classIndex ) {
 @section('content')
     <div class="container">
         <div class="schedule">
-            <h1> Schedule</h1>
+            <h1 class="text-muted"> Schedule</h1>
             
             <table class="table table-striped align-middle table-hover">
                 <thead>

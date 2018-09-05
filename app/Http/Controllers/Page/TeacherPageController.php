@@ -64,6 +64,13 @@ class TeacherPageController extends Controller
         return view('page.teacher.class_overview', ['classInfo' => $classInfo]);
     }
     
+    public function assistantOverview ( Request $request )
+    {
+        $assistant = Account::getAssistant( route_parameter('assistant_index') );
+        
+        return view('page.teacher.assistant_overview', ['assistant' => $assistant]);
+    }
+    
     public function changePassword ( Request $request )
     {
         return view('page.teacher.change_password');
