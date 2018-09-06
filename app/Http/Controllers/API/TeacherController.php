@@ -163,16 +163,26 @@ class TeacherController extends Controller
     {
         if ( isset( $_POST['className'] ) && 
              isset( $_POST['classRoom'] ) && 
+             isset( $_POST['date'] ) &&
              isset( $_POST['startTime'] ) && 
              isset( $_POST['endTime'] ) && 
              isset( $_POST['repeatDay'] ) && 
              isset( $_POST['repeatTime'] ) && 
              isset( $_POST['assistant'] ))
         {
-            $startTime = $_POST['startTime'][0].' '.$_POST['startTime'][1];
-            $endTime = $_POST['endTime'][0].' '.$_POST['endTime'][1];
             
-            return Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant'], $_POST['repeatDay'], $_POST['repeatTime']) ? redirect()->route('teacher_home') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            if ( $_POST['startTime'] > $_POST['endTime'] || $_POST['startTime'] < '17:00' )
+                return view('page.utility.wrong_message', ['message' => 'Error Time Format']);
+            
+            $startTime = $_POST['date'] . " " . $_POST['startTime'];
+            $endTime = $_POST['date'] . " " . $_POST['endTime'];
+            
+            $status = Reservation::createReservation($_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant'], $_POST['repeatDay'], $_POST['repeatTime']);
+            
+            if ( is_array($status) )
+                return view('page.utility.wrong_message', ['message' => json_encode($status)]);
+            else
+                return edirect()->route('teacher_home');
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);
@@ -183,14 +193,24 @@ class TeacherController extends Controller
         if ( isset( $_POST['classIndex'] ) && 
              isset( $_POST['className'] ) && 
              isset( $_POST['classRoom'] ) && 
+             isset( $_POST['date'] ) &&
              isset( $_POST['startTime'] ) && 
              isset( $_POST['endTime'] ) && 
              isset( $_POST['assistant'] ))
         {
-            $startTime = $_POST['startTime'][0].' '.$_POST['startTime'][1];
-            $endTime = $_POST['endTime'][0].' '.$_POST['endTime'][1];
+            if ( $_POST['startTime'] > $_POST['endTime'] || $_POST['startTime'] < '17:00' )
+                return view('page.utility.wrong_message', ['message' => 'Error Time Format']);
             
-            return Reservation::editReservation($_POST['classIndex'], $_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant']) ? redirect()->route('schedule') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            $startTime = $_POST['date'] . " " . $_POST['startTime'];
+            $endTime = $_POST['date'] . " " . $_POST['endTime'];
+            
+            $status = Reservation::editReservation($_POST['classIndex'], $_POST['className'], $_POST['classRoom'], $startTime, $endTime, $_POST['assistant']) ? redirect()->route('schedule') : view('page.utility.wrong_message', ['message' => 'Wrong Input']);
+            
+            if ( is_array($status) )
+                return view('page.utility.wrong_message', ['message' => json_encode($status)]);
+            else
+                return edirect()->route('teacher_home');
+            
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);

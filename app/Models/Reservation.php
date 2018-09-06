@@ -43,11 +43,11 @@ class Reservation extends Model
                     'end_time' => $newEndTime,
                     'assistant' => $assistant,
                     'class_index' => $index
-                ]);                     
+                ]);  
             } 
             catch( \Exception $exception )
             {
-                return false;
+                return ['error' => 'wrong Input!!!@'];
             }
         }
         
@@ -58,7 +58,7 @@ class Reservation extends Model
     {
         try
         {
-            return DB::table('reservation_class')
+            DB::table('reservation_class')
                 -> where ('class_index', '=', $classIndex)
                 -> update([
                         'class_name' => $className,
@@ -66,11 +66,12 @@ class Reservation extends Model
                         'start_time' => $startTime,
                         'end_time' => $endTime,
                         'assistant' => $assistant
-                    ]);                
+                    ]); 
+            return true;
         } 
         catch( \Exception $exception )
         {
-            return false;
+            return ['error' => 'wrong Input!!!@'];
         }
     }
     

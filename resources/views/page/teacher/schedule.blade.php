@@ -21,9 +21,8 @@ function editClass ( classIndex ) {
     
     $('#classIndex').val(classData.class_index);
     $('#className').val(classData.class_name);
-    $('#startDate').val(classData.start_time.substr(0, 10));
+    $('#date').val(classData.start_time.substr(0, 10));
     $('#startTime').val(classData.start_time.substr(11, 5));
-    $('#endDate').val(classData.end_time.substr(0, 10));
     $('#endTime').val(classData.end_time.substr(11, 5));
     $('#classRoom').val(classData.class_room);
     $('#assistant').val(assistant.account);
@@ -41,6 +40,38 @@ function deleteClass ( classIndex ) {
    // $('#deleteClassName').val(classData.class_name);
     
     $('#deleteForm').modal('show');
+}
+
+function check() {
+		
+    $('input').removeClass('is-invalid');
+    
+    let flag = true;
+    /*
+    if ( $('#startTime').val() > $('#endTime').val() || $('#startTime').val() < "17:00" ) {
+
+        $('#startTime').addClass('is-invalid');
+        $('#endTime').addClass('is-invalid');
+        
+        flag =  false;
+        
+    }
+    if ( $('#className').val().trim().length === 0) {
+        
+        $('#className').addClass('is-invalid');
+        
+        flag =  false;
+        
+    }
+    if ( $('#classRoom').val().trim().length === 0) {
+
+        $('#classRoom').addClass('is-invalid');
+        
+        flag =  false;
+        
+    } 
+    */
+    return flag;
 }
 
 
@@ -96,33 +127,35 @@ function deleteClass ( classIndex ) {
                     <span aria-hidden="true">&times;</span>
                 </button>
              </div>
-             <form action="/api/edit_reservation_class" method="POST">
+             <form action="/api/edit_reservation_class" method="POST" onsubmit="return check();">
                  <div class="modal-body" id="question">
                     
-                    <div class="form-group row">
-                        <label for="classIndex" class="col-sm-3 col-form-label">Class Index</label>
-                        <div class="col-sm-9">
-                            <input type="text" class="form-control form-control-plaintext" id="classIndex" name="classIndex" readonly>
-                        </div>
-                    </div>
+                    <input id="classIndex" name="classIndex" style="display: none" required readonly>
                     
                     <div class="form-group row">
                         <label for="className" class="col-sm-3 col-form-label">Class Name</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="className" name="className" autofocus required>
+                            <div class="invalid-feedback">
+                                Class name can't be blank.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group row">
+                        <label for="date" class="col-sm-3 col-form-label">Date</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" id="date" name="date" required>
                         </div>
                     </div>
                     
                     <div class="form-group row">
                         <label for="startTime" class="col-sm-3 col-form-label">Start Time</label>
                         <div class="col-sm-9">
-                            <div class="row">
-                                <div class="col-md-6 pr-0">
-                                    <input type="date" class="form-control" id="startDate" name="startTime[]" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="time" class="form-control" id="startTime" name="startTime[]" required>
-                                </div>
+                            <input type="time" class="form-control" id="startTime" name="startTime"  required>
+                            <div class="invalid-feedback">
+                                Start time must not later than end time.<br>
+                                Start time must later than 17:00.<br>
                             </div>
                         </div>
                     </div>
@@ -130,14 +163,7 @@ function deleteClass ( classIndex ) {
                     <div class="form-group row">
                         <label for="endTime" class="col-sm-3 col-form-label">End Time</label>
                         <div class="col-sm-9">
-                            <div class="row">
-                                <div class="col-md-6 pr-0">
-                                    <input type="date" class="form-control" id="endDate" name="endTime[]" required>
-                                </div>
-                                <div class="col-md-6">
-                                    <input type="time" class="form-control" id="endTime" name="endTime[]" required>
-                                </div>
-                            </div>
+                            <input type="time" class="form-control" id="endTime" name="endTime" required>
                         </div>
                     </div>
                     
@@ -145,6 +171,9 @@ function deleteClass ( classIndex ) {
                         <label for="classRoom" class="col-sm-3 col-form-label">Class Room</label>
                         <div class="col-sm-9">
                             <input type="text" class="form-control" id="classRoom" name="classRoom" required>
+                            <div class="invalid-feedback">
+                                Class room can't be blank.
+                            </div>
                         </div>
                     </div>
                     
