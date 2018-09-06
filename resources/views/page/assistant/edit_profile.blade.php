@@ -1,4 +1,4 @@
-@extends('layouts.student')
+@extends('layouts.assistant')
 
 @section('title', 'Edit Profile')
 

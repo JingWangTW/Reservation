@@ -36,6 +36,13 @@ class StudentPageController extends Controller
         return view('page.student.change_password');
     }
     
+    public function editProfile ( Request $request )
+    {
+        $data = Account::getStudentData(\Auth::user() -> id);
+        
+        return view('page.student.edit_profile', ['data' => $data]);
+    }
+    
     public function assistantOverview ( Request $request )
     {
         $assistant = Account::getAssistant( route_parameter('assistant_index') );

@@ -49,6 +49,11 @@ $router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], fu
         'uses' => 'Page\StudentPageController@changePassword'] 
     );
     
+    $router->get ('/edit_profile', [
+        'as' => 'student_edit_profile', 
+        'uses' => 'Page\StudentPageController@editProfile'] 
+    );
+    
     $router->get ('/assistant_overview/{assistant_index}', [
         'as' => 'student_assistant_overview', 
         'uses' => 'Page\StudentPageController@assistantOverview'] 
@@ -162,11 +167,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     $router->group(['middleware' => ['auth', 'student']], function () use ($router) {
 
+        $router->post('student_edit_profile', 'API\StudentController@editProfile');
         $router->post('making_reservation', 'API\StudentController@makingReservation');
         $router->post('edit_reservation_record', 'API\StudentController@editReservation');
         $router->post('delete_reservation_record', 'API\StudentController@deleteReservation');
         
-    
     });
     
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {

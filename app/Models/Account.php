@@ -204,6 +204,43 @@ class Account extends Model
         }
     }
     
+    public static function getStudentData( $id ) {
+        
+        try
+        {
+            return DB::table("account")
+                -> where ( 'account', '=', $id)
+                -> where ( 'authority', '=', 1)
+                -> select ( 'department', 'grade' )
+                -> first ();                
+        }
+        catch( \Exception $e )
+        {
+            return ['error' => 'Wrong Input !!!@'];
+        }
+    }
+    
+    public static function studentEditProfile( $id, $name, $department, $grade ) {
+        
+        try
+        {
+            DB::table("account")
+                -> where ( 'account', '=', $id)
+                -> update([
+                        'name' => $name,
+                        'department' => $department,
+                        'grade' => $grade,
+                    ]);
+                
+            return true;
+        }
+        catch( \Exception $e )
+        {
+            return ['error' => 'Wrong Input !!!@'];
+        }
+        
+    }
+    
     public static function addAssistant ( $name, $email )
     {
         $findAccount = DB::table("account")
