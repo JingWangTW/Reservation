@@ -261,7 +261,7 @@ class Account extends Model
                 
             DB::table("assistant_profile")
                 ->insert([
-                    "account" => $email,
+                    "assistant_index" => $email,
                 ]);
                 
             return true;

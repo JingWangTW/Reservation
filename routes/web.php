@@ -30,7 +30,7 @@ $router->group(['middleware' => 'warn'], function () use ($router) {
         'uses' => 'Page\UserPageController@forgetPassword'] 
     );
     
-    $router->get ('/assistant_overview', [
+    $router->get ('/assistant_overview/{assistant_index}/', [
         'as' => 'student_assistant_overview', 
         'uses' => 'Page\UserPageController@assistantOverview'] 
     );
@@ -54,7 +54,7 @@ $router->group(['middleware' => ['auth', 'student'], 'prefix' => '/student'], fu
         'uses' => 'Page\StudentPageController@editProfile'] 
     );
     
-    $router->get ('/assistant_overview/{assistant_index}', [
+    $router->get ('/assistant_overview/{assistant_index}/', [
         'as' => 'student_assistant_overview', 
         'uses' => 'Page\StudentPageController@assistantOverview'] 
     );

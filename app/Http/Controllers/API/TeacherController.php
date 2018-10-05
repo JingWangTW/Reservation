@@ -182,7 +182,7 @@ class TeacherController extends Controller
             if ( is_array($status) )
                 return view('page.utility.wrong_message', ['message' => json_encode($status)]);
             else
-                return edirect()->route('teacher_home');
+                return redirect()->route('teacher_home');
         }
         
         return view('page.utility.wrong_message', ['message' => 'Wrong Input']);

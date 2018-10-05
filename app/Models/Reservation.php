@@ -16,7 +16,7 @@ class Reservation extends Model
         // if repeat every 0 day, jsut add it once
         if ($repeatDay == 0)
             $repeatTime = 1;
-        
+    	 
         for ( $counter = 0; $counter < $repeatTime; $counter++ )
         {
             $index = "A".Utility::generateRandomString(10);
@@ -36,7 +36,7 @@ class Reservation extends Model
             
             try
             {
-                return DB::table('reservation_class')->insert([
+                DB::table('reservation_class')->insert([
                     'class_name' => $className,
                     'class_room' => $classRoom,
                     'start_time' => $newStartTime,

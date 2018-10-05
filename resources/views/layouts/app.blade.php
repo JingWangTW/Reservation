@@ -45,7 +45,7 @@
                 Copyright © {{date('Y')}} All Rights Reserved.
             </div>
             <div class="col-md-auto col-sm-12 text-sm-center col-12 my-2">
-                 Develop by Jing, Wang.
+                 Build by Jing, Wang.
             </div>
         </div>
     
