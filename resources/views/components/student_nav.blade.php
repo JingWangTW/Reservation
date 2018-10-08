@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="studentNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!--li class="nav-item active">
                 <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item">
@@ -19,12 +19,12 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </li>
+            </li-->
         </ul>
         
        <div class='navbar-nav form-inline nav-item dropdown mr-5'>
            <a class='nav-link dropdown-toggle' href='/' id='dropdown01' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> {{ $NAME }}</a>
-           <div class='dropdown-menu' aria-labelledby='dropdown01'>
+           <div class='dropdown-menu mr-4' aria-labelledby='dropdown01'>
                 <a class='dropdown-item' href='/student/edit_profile'>Edit Profile</a>
                 <a class='dropdown-item' href='/student/change_password'>Change Password</a>
                 <a class='dropdown-item' href='/api/logout'>Logout</a>

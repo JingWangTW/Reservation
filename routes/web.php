@@ -174,6 +174,12 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         
     });
     
+    $router->group(['middleware' => ['auth', 'assistant']], function () use ($router) {
+
+        $router->post('assistant_edit_profile', 'API\AssistantController@editProfile');
+        
+    });
+    
     $router->group(['middleware' => ['auth', 'teacher']], function () use ($router) {
 
         $router->post('create_class', 'API\TeacherController@createClass');
@@ -188,9 +194,11 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 });
 
 // all files part
-$router->group(['prefix' => 'file'], function () use ($router) {
+$router->group(['prefix' => 'get-file'], function () use ($router) {
     
-    $router->get('system/{fileName}', 'FileManager\SystemFile@service');
+    $router->get('system/{fileName}', 'FileManager\FileManager@systemFile');
+
+    $router->get('img[/{fileName}]', 'FileManager\FileManager@imgFile');
     
 });
 

@@ -6,7 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="assistantNav">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
+            <!--li class="nav-item active">
                 <a class="nav-link" href="#">Link</a>
             </li>
             <li class="nav-item">
@@ -19,7 +19,7 @@
                     <a class="dropdown-item" href="#">Another action</a>
                     <a class="dropdown-item" href="#">Something else here</a>
                 </div>
-            </li>
+            </li-->
         </ul>
         
        <div class='navbar-nav form-inline nav-item dropdown mr-5'>

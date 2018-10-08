@@ -216,7 +216,7 @@ function handleAmountClick() {
                                 </div>
                             </div>
                             <small class="form-text text-danger">Please fill in the table prepare in the sample file.</small>
-                            <a class="btn btn-success" href="/file/system/add_student_example.csv"> Download Sample File</a>
+                            <a class="btn btn-success" href="/get-file/system/add_student_example.csv"> Download Sample File</a>
                         </div>
                         
                         <div class="tab-pane fade" id="key" role="key" aria-labelledby="profile-tab">

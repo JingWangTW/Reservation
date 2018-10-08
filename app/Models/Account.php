@@ -241,6 +241,65 @@ class Account extends Model
         
     }
     
+    public static function assistantEditProfile( $id, $name, $department, $grade, $talent, $subject, $ability, $img ) {
+        
+        try
+        {
+            // update account table
+            DB::table("account")
+                -> where ( 'account', '=', $id)
+                -> update([
+                        'name' => $name,
+                        'department' => $department,
+                        'grade' => $grade,
+                    ]);
+            
+            // prepare move file
+            $target_file = NULL;
+            $file_name = NULL;
+
+            if ( !is_null($img) )
+            {
+                $target_file = SITE_ROOT."/file/img/$id-profile.".pathinfo($img["name"], PATHINFO_EXTENSION);;
+                $file_name = "$id-profile.".pathinfo($img["name"], PATHINFO_EXTENSION);;
+            }
+           
+            $origin_file = DB::table("assistant_profile")
+                -> where ( 'assistant_index', '=', $id )
+                -> select ('img')
+                -> first()
+                -> img;
+
+            // update assistant_profile table
+            DB::table("assistant_profile")
+                -> where ( 'assistant_index', '=', $id)
+                -> update([
+                        'subject' => $subject,
+                        'talent' => $talent,
+                        'ability' => $ability,
+                        'img' => is_null($img) ? $origin_file : $file_name,
+                    ]);
+            
+            // move file
+            if ( $target_file )
+                move_uploaded_file($img['tmp_name'], $target_file);
+            
+            // update user table 
+            $findUser = User::find( \Auth::user() -> id);
+            $findUser -> name = $name;
+            $findUser -> save();
+
+
+            return true;
+        }
+        catch( \Exception $e )
+        {
+            return ['error' => $e -> getMessage()];
+            return ['error' => 'Wrong Input !!!@'];
+        }
+        
+    }
+
     public static function addAssistant ( $name, $email )
     {
         $findAccount = DB::table("account")
