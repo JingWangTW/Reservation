@@ -2,10 +2,10 @@
 
 @section('custom_head_file_body')
     
-    <link rel="stylesheet"href="https://code.jquery.com/ui/jquery-ui-git.css">
+    <link rel="stylesheet"href="//code.jquery.com/ui/jquery-ui-git.css">
     <link rel="stylesheet" href="{{ 'css/schedule.css' }}">
     
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <script src="{{ 'js/schedule.js' }}"></script>
     
 @endsection
