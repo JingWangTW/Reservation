@@ -83,8 +83,10 @@ class Account extends Model
                             'create_at' => date('Y-m-d H:i'),
                         ]);
                 
-                $content = 'Please click the link below in 30 minutes to change your password.';
-                $content = $content."http://140.121.197.130:8106/verifyMail/$token";
+                $SITE_HOST_NAME = SITE_HOST_NAME;
+                $content = "
+Please click the link below within 30 minutes to change your password
+http://{$SITE_HOST_NAME}/verifyMail/{$token}";
                 
                 Mail::raw($content, function ($message) use ($email) {
                     $message->subject('[Reservation System] Forget Password');

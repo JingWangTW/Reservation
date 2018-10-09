@@ -12,6 +12,7 @@
 */
 
 define ('SITE_ROOT', realpath(dirname(__FILE__)));
+define ('SITE_HOST_NAME', 'clc-reservation.tk');
 
 $app = require __DIR__.'/../bootstrap/app.php';
 

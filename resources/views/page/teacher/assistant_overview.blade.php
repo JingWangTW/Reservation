@@ -55,19 +55,19 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="subject" class="col-sm-2 col-form-label"> Subject </label>
+                            <label for="subject" class="col-sm-2 col-form-label"> Counseling Subject </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="subject" name="subject" value="{{ $assistant -> subject  }}" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="talent" class="col-sm-2 col-form-label"> Talent </label>
+                            <label for="talent" class="col-sm-2 col-form-label"> Specialty </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="talent" name="talent" value="{{ $assistant -> talent  }}" disabled>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="subject" class="col-sm-2 col-form-label"> English Ability </label>
+                            <label for="subject" class="col-sm-2 col-form-label"> Language Ability </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="ability" name="ability" value="{{ $assistant -> ability  }}" disabled>
                             </div>
