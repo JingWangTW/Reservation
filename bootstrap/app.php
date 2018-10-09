@@ -73,7 +73,7 @@ $app->bind(\Illuminate\Session\SessionManager::class, function () use ($app) {
 // ]);
 
 $app->middleware([
-    App\Http\Middleware\XSSProtection::class
+    App\Http\Middleware\XSSProtection::class,
  ]);
 
 // page authorization
@@ -92,6 +92,7 @@ $app->routeMiddleware([
 
 $app->middleware([
     \Illuminate\Session\Middleware\StartSession::class,
+    App\Http\Middleware\LogRecord::class,
 ]);
 
 /*
