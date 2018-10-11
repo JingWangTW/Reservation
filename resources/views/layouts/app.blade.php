@@ -5,14 +5,16 @@
         <meta charset="utf-8">
         <meta name="author" content="Jing, Wang">
         <meta name="keywords" content="Reservation System,Chinese Language Center,CLC,NTOU,NTOU CLC">
-        <meta name="theme-color" content="#000000">
+        <meta name="google-site-verification" content="Ods78NXwYwcdrG1uVlWcTF0nxJl2as858g8m6mOFiIk" />
+        <meta name="msvalidate.01" content="A7CC1E8FDA7058BEAA0230829F6726A1" />
 
+        <meta name="theme-color" content="#000000">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         
-        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity=
+        <link rel="stylesheet" type="text/css" href="//stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity=
         "sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B" crossorigin="anonymous">
         
-        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/earlyaccess/notosanstc.css">
+        <link rel="preload" type="text/css" href="//fonts.googleapis.com/earlyaccess/notosanstc.css" as="style" onload="this.rel='stylesheet'">
         
         @yield('custom_head_file')
         
