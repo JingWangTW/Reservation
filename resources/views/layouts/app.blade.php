@@ -4,6 +4,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="author" content="Jing, Wang">
+        <meta name="keywords" content="Reservation System,Chinese Language Center,CLC,NTOU,NTOU CLC">
         <meta name="theme-color" content="#000000">
 
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
