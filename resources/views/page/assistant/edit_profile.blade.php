@@ -17,6 +17,7 @@
 
     #fileNameLabel {
         z-index: 0;
+        overflow: hidden;
     }
 
 @endsection
