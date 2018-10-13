@@ -17,7 +17,7 @@ class Account extends Model
             
         if ($findAccount)
         {
-            if (  password_verify ($password, $findAccount -> password) )
+            if ( $account == $findAccount-> account &&  password_verify ($password, $findAccount -> password) )
             {
                 $token = Account::generateToken();
                 
