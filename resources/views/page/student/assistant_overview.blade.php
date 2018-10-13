@@ -35,41 +35,39 @@
                                 <input type="text" class="form-control" id="name" name="name" value="{{ $assistant -> name}}" disabled>
                             </div>
                         </div>
+                        
                         <div class="form-group row">
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label for="department" class="col-sm-4 col-form-label"> Department </label>
-                                    <div class="col-sm-8">
-                                        <input type="text" class="form-control" id="department" name="department" value="{{ $assistant -> department  }}"  disabled>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-md-6">
-                                <div class="row">
-                                    <label for="department" class="col-sm-2 col-form-label"> Grade </label>
-                                    <div class="col-sm-10">
-                                        <input type="number" class="form-control" id="grade" name="grade" min="1" max="8" value="{{ $assistant -> grade  }}" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="subject" class="col-sm-2 col-form-label"> Counseling Subject </label>
+                            <label for="department" class="col-sm-2 col-form-label"> Department </label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="subject" name="subject" value="{{ $assistant -> subject  }}" disabled>
+                                <input type="text" class="form-control" id="department" name="department" value="{{ $assistant -> department  }}"  disabled>
                             </div>
                         </div>
+
+                        <div class="form-group row">
+                            <label for="department" class="col-sm-2 col-form-label"> Grade </label>
+                            <div class="col-sm-10">
+                                <input type="number" class="form-control" id="grade" name="grade" min="1" max="8" value="{{ $assistant -> grade  }}" disabled>
+                            </div>
+                        </div>
+                        
                         <div class="form-group row">
                             <label for="talent" class="col-sm-2 col-form-label"> Specialty </label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="talent" name="talent" value="{{ $assistant -> talent  }}" disabled>
                             </div>
                         </div>
+                        
                         <div class="form-group row">
-                            <label for="subject" class="col-sm-2 col-form-label"> Language Ability </label>
-                            <div class="col-sm-10">
+                            <label for="subject" class="col-lg-3 col-sm-4 col-form-label"> Language Ability </label>
+                            <div class="col-lg-9 col-sm-8">
                                 <input type="text" class="form-control" id="ability" name="ability" value="{{ $assistant -> ability  }}" disabled>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label for="subject" class="col-xl-3 col-lg-4 col-sm-5 col-form-label"> Counseling Subject </label>
+                            <div class="col-xl-9 col-lg-8 col-sm-7">
+                                <input type="text" class="form-control" id="subject" name="subject" value="{{ $assistant -> subject  }}" disabled>
                             </div>
                         </div>
                     </div>

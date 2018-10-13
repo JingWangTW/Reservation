@@ -22,7 +22,7 @@
             </li-->
         </ul>
         
-       <div class='navbar-nav form-inline nav-item dropdown' style="margin-right: 80px;">
+       <div class='navbar-nav  nav-item dropdown' style="margin-right: 80px;">
            <a class='nav-link dropdown-toggle' href='/' id='dropdown01' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false'> {{ $NAME }}</a>
            <div class='dropdown-menu mr-5' aria-labelledby='dropdown01'>
                 <a class='dropdown-item' href='/assistant/edit_profile'>Edit Profile</a>
