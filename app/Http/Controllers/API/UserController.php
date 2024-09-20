@@ -17,19 +17,16 @@ class UserController extends Controller
      * @return Response
      */
 
-    public function signAgreeWarn ( Request $request )
+    public function signAgreeWarn(Request $request)
     {
-        if ( isset($_POST["agree"]) && !strcasecmp ($_POST["agree"], "agree") )
-        {
+        if (isset($_POST["agree"]) && !strcasecmp($_POST["agree"], "agree")) {
             $request->session()->put('agree', "true");
-            
+
             return redirect()->route('home');
-        }
-        else
-        {
+        } else {
             return redirect()->route('welcome');
         }
     }
-    
-    
+
+
 }

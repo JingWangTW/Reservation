@@ -33,12 +33,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-    /*
-        if ($e instanceof NotFoundHttpException )
-            return  response(view("errors.404"), 404);
-        else if ( $e instanceof  HttpException )
-            return response(view("errors.500"), 500);
-*/
+        /*
+            if ($e instanceof NotFoundHttpException )
+                return  response(view("errors.404"), 404);
+            else if ( $e instanceof  HttpException )
+                return response(view("errors.500"), 500);
+    */
         parent::report($e);
     }
 

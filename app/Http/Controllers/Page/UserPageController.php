@@ -12,52 +12,52 @@ use App\Models\Account as Account;
 
 class UserPageController extends Controller
 {
-    public function index ( Request $request )
+    public function index(Request $request)
     {
         return view('page.user.welcome');
     }
-    
-    public function home ( Request $request)
+
+    public function home(Request $request)
     {
         // set the date limit to query
         $startTime = date('Y-m-d');
         $endTime = new DateTime();
-        $endTime = $endTime -> add(new DateInterval('P2W'))
-                                -> format('Y-m-d');
-        
-        
+        $endTime = $endTime->add(new DateInterval('P2W'))
+            ->format('Y-m-d');
+
+
         // $classList =  Reservation::getReservationClassList([
         //     ['start_time', '>=', $startTime],
         //     ['end_time', '<', $endTime],            
         // ]);
-        
+
         return view('page.user.home', ['classList' => []]);
     }
-    
-    public function assistantOverview ( Request $request )
+
+    public function assistantOverview(Request $request)
     {
-        $assistant = Account::getAssistant( route_parameter('assistant_index') );
-        
+        $assistant = Account::getAssistant(route_parameter('assistant_index'));
+
         return view('page.user.assistant_overview', ['assistant' => $assistant]);
     }
-    
-    public function forgetPassword( Request $request )
+
+    public function forgetPassword(Request $request)
     {
         return view('page.user.forget');
     }
-    
-    public function verifyMail( Request $request, $token )
+
+    public function verifyMail(Request $request, $token)
     {
-        $status = Account::verifyMail( $token );
+        $status = Account::verifyMail($token);
         //return $status;
-        if ( !is_array($status) ) {
+        if (!is_array($status)) {
             return view('page.user.reset_password', ['token' => $token]);
         } else {
             return view('page.utility.wrong_message', ['message' => $status['error']]);
         }
     }
-    
-    public function changePassword( Request $request )
+
+    public function changePassword(Request $request)
     {
         return view('page.user.change_password');
     }
