@@ -11,30 +11,16 @@
 |
 */
 
-// Route::get('/', function () {
-//     return 'Hello World';
-// });
-
-
-// Route::view('/', 'page.user.welcome');
-
-
-Route::get('/', 'Page\UserPageController@index');
-
-
-
-
-
 // all users page part
 $router->group(['middleware' => 'warn'], function () use ($router) {
 
-    // $router->get(
-    //     '/',
-    //     [
-    //         'as' => 'welcome',
-    //         'uses' => 'Page\UserPageController@index'
-    //     ]
-    // );
+    $router->get(
+        '/',
+        [
+            'as' => 'welcome',
+            'uses' => 'Page\UserPageController@index'
+        ]
+    );
 
     $router->get(
         '/home',
