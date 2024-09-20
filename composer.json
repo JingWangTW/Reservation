@@ -8,13 +8,13 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^8.1.0",
-        "laravel/framework": "^10.0",
+        "php": "^8.2.0",
+        "laravel/framework": "^11.0",
         "laravel/helpers": "^1.7",
         "laravel/tinker": "^2.0"
     },
     "require-dev": {
-        "beyondcode/laravel-dump-server": "^1.0",
+        "beyondcode/laravel-dump-server": "^2.0",
         "filp/whoops": "^2.0",
         "mockery/mockery": "^1.0",
         "phpunit/phpunit": "^10.0"
