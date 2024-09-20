@@ -26,12 +26,12 @@ class UserPageController extends Controller
                                 -> format('Y-m-d');
         
         
-        $classList =  Reservation::getReservationClassList([
-            ['start_time', '>=', $startTime],
-            ['end_time', '<', $endTime],            
-        ]);
+        // $classList =  Reservation::getReservationClassList([
+        //     ['start_time', '>=', $startTime],
+        //     ['end_time', '<', $endTime],            
+        // ]);
         
-        return view('page.user.home', ['classList' => $classList]);
+        return view('page.user.home', ['classList' => []]);
     }
     
     public function assistantOverview ( Request $request )
