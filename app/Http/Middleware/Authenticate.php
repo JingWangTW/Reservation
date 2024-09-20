@@ -35,17 +35,14 @@ class Authenticate
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if ( $this -> auth -> user() && $this -> auth -> user() -> token)
-        {
-            view()->share('NAME', $this -> auth -> user() -> name);
-            
+        if ($this->auth->user() && $this->auth->user()->token) {
+            view()->share('NAME', $this->auth->user()->name);
+
             return $next($request);
-        }
-        else
-        {
+        } else {
             return redirect()->route('home');
         }
-        
+
         return $next($request);
     }
 }

@@ -20,28 +20,28 @@ class LogRecord
     public function handle($request, \Closure $next)
     {
 
-        $ip = $request -> ip();
-        $action = $request -> path();
-        $method = $request -> method();
+        $ip = $request->ip();
+        $action = $request->path();
+        $method = $request->method();
         $data = null;
         $token = null;
         $account = null;
-        
-        if ( strpos($action, "login") === false && strpos($action, "signup") === false &&
-             strpos($action, "reset_pwd") === false && strpos($action, "change_pwd") === false )
-        {
-            $data = json_encode($request -> all());
+
+        if (
+            strpos($action, "login") === false && strpos($action, "signup") === false &&
+            strpos($action, "reset_pwd") === false && strpos($action, "change_pwd") === false
+        ) {
+            $data = json_encode($request->all());
         }
 
-        if ( \Auth::user() && \Auth::user() -> token ) 
-        {
-            $token = \Auth::user() -> token;
-            $account = \Auth::user() -> id;
+        if (\Auth::user() && \Auth::user()->token) {
+            $token = \Auth::user()->token;
+            $account = \Auth::user()->id;
         }
 
 
         DB::table('log')
-            -> insert([
+            ->insert([
                 'ip' => $ip,
                 'action' => $action,
                 'method' => $method,

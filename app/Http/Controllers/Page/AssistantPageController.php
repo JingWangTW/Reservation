@@ -10,33 +10,33 @@ use App\Models\Account as Account;
 
 class AssistantPageController extends Controller
 {
-    public function home ( Request $request )
+    public function home(Request $request)
     {
         $classList = Reservation::getReservationClassList([
-            ['assistant', '=', \Auth::user() -> id],
+            ['assistant', '=', \Auth::user()->id],
             ['start_time', '>=', date('Y-m-d')],
         ]);
-        
+
         return view('page.assistant.home', ['classList' => $classList]);
     }
-    
-    public function classOverview ( Request $request )
+
+    public function classOverview(Request $request)
     {
-        $classInfo = Reservation::getClass( route_parameter('class_index') );
-        
+        $classInfo = Reservation::getClass(route_parameter('class_index'));
+
         return view('page.assistant.class_overview', ['classInfo' => $classInfo]);
     }
-    
-    public function editProfile ( Request $request ) 
+
+    public function editProfile(Request $request)
     {
-        $assistant = Account::getAssistant( \Auth::user()->id );
-        
+        $assistant = Account::getAssistant(\Auth::user()->id);
+
         return view('page.assistant.edit_profile', ['assistant' => $assistant]);
     }
-    
-    public function changePassword ( Request $request )
+
+    public function changePassword(Request $request)
     {
         return view('page.assistant.change_password');
     }
-    
+
 }

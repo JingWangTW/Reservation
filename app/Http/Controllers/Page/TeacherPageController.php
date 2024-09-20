@@ -12,66 +12,66 @@ use App\Models\Reservation as Reservation;
 
 class TeacherPageController extends Controller
 {
-    public function home ( Request $request )
+    public function home(Request $request)
     {
         return view('page.teacher.home');
     }
-    
-    public function createClass ( Request $request )
+
+    public function createClass(Request $request)
     {
         return view('page.teacher.create_class');
     }
-    
-    public function addStudents ( Request $request )
+
+    public function addStudents(Request $request)
     {
         $classList = ClassManager::getClassList();
-        
+
         return view('page.teacher.add_students', ['classList' => $classList]);
     }
-    
-    public function registerAssistant ( Request $request )
+
+    public function registerAssistant(Request $request)
     {
         return view('page.teacher.register_assistant');
     }
-    
-    public function registerTeacher ( Request $request )
+
+    public function registerTeacher(Request $request)
     {
         return view('page.teacher.register_teacher');
     }
-    
-    public function newReservation ( Request $request )
+
+    public function newReservation(Request $request)
     {
         $assistantList = Account::getAssistantList();
-        
+
         return view('page.teacher.new_reservation', ['assistantList' => $assistantList]);
     }
-    
-    public function schedule ( Request $request )
+
+    public function schedule(Request $request)
     {
         // set the date limit to query
         $classList = Reservation::getReservationClassList([
             ['start_time', '>=', date('Y-m-d')]
         ]);
         $assistantList = Account::getAssistantList();
-        
+
         return view('page.teacher.schedule', ['assistantList' => $assistantList, 'classList' => $classList]);
     }
-    
-    public function classOverview ( Request $request )
+
+    public function classOverview(Request $request)
     {
-        $classInfo = Reservation::getClass( route_parameter('class_index') );
-        
+        $classInfo = Reservation::getClass(route_parameter('class_index'));
+
         return view('page.teacher.class_overview', ['classInfo' => $classInfo]);
     }
-    
-    public function assistantOverview ( Request $request )
+
+    public function assistantOverview(Request $request)
     {
-        $assistant = Account::getAssistant( route_parameter('assistant_index') );
-        
+        $assistant = Account::getAssistant(route_parameter('assistant_index'));
+
         return view('page.teacher.assistant_overview', ['assistant' => $assistant]);
     }
-    
-    public function changePassword ( Request $request )
+
+    public function changePassword(Request $request)
     {
         return view('page.teacher.change_password');
     }

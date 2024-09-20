@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 class User extends Model implements AuthenticatableContract, AuthorizableContract
 {
     use Authenticatable, Authorizable;
-    
+
     // use id as string
     public $incrementing = false;
 
@@ -21,7 +21,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'token', 'authority', 'id',
+        'name',
+        'token',
+        'authority',
+        'id',
     ];
 
     /**

@@ -6,7 +6,7 @@ use Exception;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Laravel\Lumen\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class Handler extends ExceptionHandler
@@ -33,12 +33,12 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
-    /*
-        if ($e instanceof NotFoundHttpException )
-            return  response(view("errors.404"), 404);
-        else if ( $e instanceof  HttpException )
-            return response(view("errors.500"), 500);
-*/
+        /*
+            if ($e instanceof NotFoundHttpException )
+                return  response(view("errors.404"), 404);
+            else if ( $e instanceof  HttpException )
+                return response(view("errors.500"), 500);
+    */
         parent::report($e);
     }
 
